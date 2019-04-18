@@ -1,15 +1,17 @@
-Mysql
+SQL server
+
 Khoa
 -- MaKhoa
 -- Ten
 -- MoTa
+-- QuanLy
 
 LopSinhHoat
 -- MaLop
 -- MaKhoa
 -- TenLop
 -- MoTa
--- MaGiaoVien
+-- QuanLy
 
 SinhVien
 -- MSSV
@@ -25,15 +27,31 @@ SinhVien
 SinhVien-LopHoc
 -- MSSV
 -- MaLopHoc
+-- DiemGiuaKy
+-- DiemQuaTrinh
+-- DiemCuoiKy
+-- DiemThucHanh
+
+SinhVien-MonHoc
+-- MSSV
+-- MaMonHoc
+-- KetQua
+
+SinhVien-ChuanDauRa
+-- MSSV
+-- MaChuanDauRa
+-- NgayBatDau
+-- QuaTrinh
+-- NgayDat
 
 MonHoc
--- Ma
+-- MaMonHoc
 -- Ten
 -- MaKhoa
 -- MoTa
 
 LopHoc
--- Ma
+-- MaLopHoc
 -- MaMon
 -- MoTa
 -- MaGiaoVien
@@ -52,10 +70,12 @@ ChuanMonHoc
 
 GiaoVien
 -- Ma
--- HoTen
+-- Ho
+-- Ten
+-- HocHam
+-- ChucVu
 -- Email
 -- Sdt
 -- MoTa
 -- Username
 -- Password
-
