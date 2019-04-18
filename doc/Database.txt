@@ -1,0 +1,56 @@
+Mysql
+Khoa
+-- MaKhoa
+-- Ten
+-- MoTa
+
+LopSinhHoat
+-- MaLop
+-- TenLop
+-- MoTa
+-- MaGiaoVien
+
+SinhVien
+-- MSSV
+-- Ten
+-- Ho
+-- MaLopSinhHoat
+-- Email
+-- Sdt
+-- DiaChi
+-- Username
+-- Password
+
+MonHoc
+-- Ma
+-- Ten
+-- MaKhoa
+-- MoTa
+
+LopHoc
+-- Ma
+-- MaMon
+-- MoTa
+-- MaGiaoVien
+
+ChuanDauRa
+-- MaChuan
+-- Ten
+-- MaKhoa
+-- DienGiai
+
+ChuanMonHoc
+-- MaChuan
+-- Ten
+-- DienGiai
+-- MaMon
+
+GiaoVien
+-- Ma
+-- HoTen
+-- Email
+-- Sdt
+-- MoTa
+-- Username
+-- Password
+

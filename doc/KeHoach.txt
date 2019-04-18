@@ -1,0 +1,39 @@
+﻿
+1.Đề tài: website hỗ trợ sinh viên kiểm tra chuẩn đầu ra môn học và tốt nghiệp
+
+2.Danh sách thành viên: 
+
+3.Tóm tắt nội dung đồ án sẽ thực hiện:
+	+ Trang quản lý sinh viên (có username, password cho sinh viên đăng nhập):
+		+ Quản lý thông tin sinh viên (Thông tin cá nhân)
+		+ Thông tin các môn học sinh viên đăng ký (kèm theo kết quả, chuẩn đầu ra,...)
+		+ Quá trình đạt chuẩn G của mỗi môn kèm theo bài test chuẩn đầu ra.
+		+ Thông tin ngành học và các chuẩn LO sinh viên sẽ đạt được
+		+ Quá trình đạt các LO của sinh viên (Các mốc thời gian nộp các chứng chỉ, )
+	+ Trang quản lý:
+		+ Admin có thể thêm danh sách môn học (thông tin, các chuẩn G, ...)
+	+ Trang quản lý cho giáo viên:
+		+ Giáo viên của lớp xem được danh sách sinh viên của lớp, cập nhật kết quả học tập, bài test chuẩn đầu ra, nhận xét các kỹ năng mềm của sinh viên trong quá trình học tập (Phục vụ xét chuẩn LO),
+		+ Trưởng khoa xem được danh sách sinh viên của khoa và các chuẩn LO mà sinh viên đã đạt được, có thể xem xét các nhận xét với sinh viên về hoạt động học tập, cập nhật các bài test chuẩn LO. 
+
+4.Danh sách công việc:
+	+ Tạo các giao diện và hiện thực trang web với các tính năng cơ bản (đăng nhập, thông tin môn học,...)
+	+ Dữ liệu và phát triển các cách đánh giá các chuẩn đối với sinh viên
+	+ Phân quyền, bảo mật tính năng test online 
+	+ Các tính năng phân tích, thống kê
+5.Timelines:
+	+ Lên ý tưởng phân tích và chuẩn bị cho đồ án, thiết kế database - ngày...
+	+ Hoàn thành các tính năng cơ bản: Đăng nhập - đăng ký, cập nhật thông tin cá nhân, môn học,... - ngày...
+	+ Hoàn thành tính năng đánh giá sinh viên, test môn học - ngày...
+	+ Hoàn thành các tính năng báo cáo, phân tích - ngày...
+	+ Hoàn thiện sản phẩm - ngày...
+
+6.Dự kiến khả năng thực hiện của nhóm:
+	+ Hoàn thành trang web với dữ liệu ảo
+	+ Giáo viên, trưởng khoa tạo các bài test để kiểm tra chuẩn G, LO tiêu chuẩn đánh giá sinh viên sẽ được giáo viên quy định và đánh giá định kỳ (Hàng tuần)
+	+ Sinh viên có thể theo dõi các chuẩn đã đạt được.
+
+7.Hướng phát triển:
+	+ Có thể xây dựng thành hệ thống quản lý sinh viên, giáo viên toàn diện với nhiều tính năng hơn: đăng ký học phần, quản lý các hoạt động đoàn hội, quản lý điểm rèn luyện, trang web kiểm tra trực tuyến thay thế cho các kỳ kiểm tra,...
+	+ Trở thành kênh kết nối giữa giáo viên, học sinh, trưởng khoa,... đánh giá, góp ý cho sinh viên, giáo viên,...
+	+ Tích hợp các công nghệ AI, máy học giúp việc đánh giá nhanh chóng và chính xác hơn
