@@ -14,6 +14,6 @@ Môn công nghệ Java - lớp
 3. Chuẩn bị môi trường local:
   - cài đặt grassfish + netbeans
   - mở project bằng netbeans
-  - chạy ở môi trường localhost
+  - chạy ở môi trường localhost: bấm nút run ở thanh công cụ netbeans, đợi rồi truy cập localhost:8080/QuanLySinhVien
   - cơ sở dữ liệu:
 
