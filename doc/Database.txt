@@ -6,6 +6,7 @@ Khoa
 
 LopSinhHoat
 -- MaLop
+-- MaKhoa
 -- TenLop
 -- MoTa
 -- MaGiaoVien
@@ -20,6 +21,10 @@ SinhVien
 -- DiaChi
 -- Username
 -- Password
+
+SinhVien-LopHoc
+-- MSSV
+-- MaLopHoc
 
 MonHoc
 -- Ma
