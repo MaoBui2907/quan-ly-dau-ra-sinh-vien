@@ -4,14 +4,14 @@ Khoa
 -- MaKhoa
 -- Ten
 -- MoTa
--- QuanLy
+-- MaTruongKhoa
 
 LopSinhHoat
 -- MaLop
--- MaKhoa
+-- MaKhoaQuanLy
 -- TenLop
 -- MoTa
--- QuanLy
+-- MaGiaoVien
 
 SinhVien
 -- MSSV
@@ -23,6 +23,18 @@ SinhVien
 -- DiaChi
 -- Username
 -- Password
+
+BangDiem:
+-- MaSV
+-- MaMon
+-- DiemQuaTrinh
+-- DiemGiuaKy
+-- DiemThucHanh
+-- DiemCuoiKy
+-- DiemTrungBinh
+-- TongQuaTrinh LO
+-- HocKy
+-- Nam 
 
 SinhVien-LopHoc
 -- MSSV
@@ -40,9 +52,14 @@ SinhVien-MonHoc
 SinhVien-ChuanDauRa
 -- MSSV
 -- MaChuanDauRa
--- NgayBatDau
+-- QuaTrinh // Đạt bao nhiêu phần trăm
+-- HocKy    // Học kỳ đạt được không
+
+SinhVien-ChuanMonHocG:
+-- MSSV
+-- MaChuanMonHoc
 -- QuaTrinh
--- NgayDat
+-- HocKy
 
 MonHoc
 -- MaMonHoc
@@ -55,27 +72,44 @@ LopHoc
 -- MaMon
 -- MoTa
 -- MaGiaoVien
+-- HocKy
+-- NamHoc
 
-ChuanDauRa
+ChuanDauRaLO
 -- MaChuan
 -- Ten
 -- MaKhoa
 -- DienGiai
 
-ChuanMonHoc
+ChuanMonHocG
 -- MaChuan
+-- MaMon
 -- Ten
 -- DienGiai
--- MaMon
+-- Diem
+
+ChuanDauRaLO-ChuanMonHocG:
+-- MaChuanDauRa
+-- MaChuanMonHoc
 
 GiaoVien
--- Ma
--- Ho
--- Ten
+-- MaGiaoVien
+-- HoTen
 -- HocHam
--- ChucVu
+-- HocVi
 -- Email
 -- Sdt
 -- MoTa
 -- Username
 -- Password
+
+QuanLy:
+-- MaTruongKhoa
+-- MaGiaoVien
+
+QuaTrinhGiangDay
+-- MaGiaoVien
+-- MaLop
+-- Nam
+-- HocKy
+-- QuaTrinhG // Bao nhiêu % học sinh đạt được các chuẩn G
