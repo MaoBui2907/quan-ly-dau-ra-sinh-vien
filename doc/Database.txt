@@ -68,7 +68,7 @@ MonHoc
 -- MoTa
 
 LopHoc
--- MaLopHoc
+-- MaLopHoc // IT009.J21_2018_2019_HK1
 -- MaMon
 -- MoTa
 -- MaGiaoVien
@@ -110,6 +110,4 @@ QuanLy:
 QuaTrinhGiangDay
 -- MaGiaoVien
 -- MaLop
--- Nam
--- HocKy
 -- QuaTrinhG // Bao nhiêu % học sinh đạt được các chuẩn G
