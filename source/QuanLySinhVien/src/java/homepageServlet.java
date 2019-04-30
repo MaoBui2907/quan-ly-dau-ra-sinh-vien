@@ -5,7 +5,7 @@
  */
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Nguyen Mao
  */
 import javax.servlet.RequestDispatcher;
-@WebServlet(urlPatterns = {"/homepage"})
+@WebServlet(urlPatterns = {"/home"})
 public class homepageServlet extends HttpServlet {
 
     /**
@@ -32,10 +32,15 @@ public class homepageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("index.html");
+        RequestDispatcher view = request.getRequestDispatcher("widgets.html");
         view.forward(request, response);
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
