@@ -33,7 +33,7 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("register.html");
+        RequestDispatcher view = request.getRequestDispatcher("register.jsp");
         view.forward(request, response);
     }
 

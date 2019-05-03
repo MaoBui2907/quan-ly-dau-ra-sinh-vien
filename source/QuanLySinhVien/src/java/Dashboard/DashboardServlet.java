@@ -37,10 +37,12 @@ public class DashboardServlet extends HttpServlet {
         RequestDispatcher view = null;
         String role = (String) request.getSession().getAttribute("role");
         if (role.equals("admin")) {
-            view = request.getRequestDispatcher("index.html");
-
+            request.setAttribute("title", "Trang quản lý admin");
+            request.setAttribute("role", "admin");
+            view = request.getRequestDispatcher("index.jsp");
         } else if (role.equals("student")) {
-            view = request.getRequestDispatcher("index.html");
+            request.setAttribute("role", "student");
+            view = request.getRequestDispatcher("index.jsp");
         }
         view.forward(request, response);
     }

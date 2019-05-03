@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("login.html");
+        RequestDispatcher view = request.getRequestDispatcher("login.jsp");
         view.forward(request, response);
     }
 
@@ -66,7 +66,10 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         if ("admin@admin".equals(email) && "admin".equals(password)) {
             request.getSession().setAttribute("role", "admin");
-            response.sendRedirect("/QuanLySinhVien/homepage");
+            response.sendRedirect("/homepage");
+        } else if ("student@student".equals(email) && "student".equals(password)) {
+            request.getSession().setAttribute("role", "student");
+            response.sendRedirect("/homepage");
         }
     }
 
