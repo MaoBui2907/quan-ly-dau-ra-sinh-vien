@@ -1,0 +1,26 @@
+-- Danh sách công việc:
+- Database:
+	+ Xây dựng database
+	+ Xây dựng dữ liệu ảo
+
+- Authenticate:
+	+ trang Login/register/forget
+	+ Json web token
+
+- Student dashboard:
+	+ Hiển thị Thông tin sinh viên
+	+ Hiện kết quả học tập theo bảng
+	+ Hiện tiến độ chuẩn đầu ra
+
+- Teacher dashboard:
+	+ Hiện thông tin giáo viên
+	+ Quản lý học sinh lớp (Thống kê, cập nhật điểm)
+	+ Thống kê quá trình giảng dạy
+
+- Dean dashboard:
+	+ Hiện thông tin giáo viên
+	+ Quản lý giáo viên
+
+- Advisor dashboard:
+	+ Hiện thông tin giáo viên
+	+ Quản lý sinh viên lớp sinh hoạt
