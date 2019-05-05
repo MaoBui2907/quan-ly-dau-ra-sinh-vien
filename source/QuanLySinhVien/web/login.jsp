@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>ĐĂNG NHẬP</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,25 +47,26 @@
                 <div class="login-form">
                     <form action="/login" method="POST">
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email">
+                            <h5>Tên truy cập *</h5>
+                            </p>
+                            <input type="email" class="form-control" name="email">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password" name="password">
+                            <h5>Mật khẩu *</h5>
+                        </p>
+                            <input type="password" class="form-control" name="password">
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Remember Me
+                                <input type="checkbox"> Nhớ mật khẩu
                             </label>
                             <label class="pull-right">
-                                <a href="/forget">Forgotten Password?</a>
+                                <a href="/forget">Quên tài khoản?</a>
                             </label>
-
                         </div>
-                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Sign in</button>
+                        <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
                         <div class="register-link m-t-15 text-center">
-                            <p>Don't have account ? <a href="/register"> Sign Up Here</a></p>
+                            <p>Chưa có tài khoản? <a href="/register"> Đăng ký</a></p>
                         </div>
                     </form>
                 </div>
