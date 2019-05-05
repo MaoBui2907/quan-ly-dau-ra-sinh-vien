@@ -1,36 +1,38 @@
 -- Danh sách thành viên:
-	+ Bùi Nguyên Mão
-	+ 
+	+ Bùi Nguyên Mão (12)
+	+ Cao Văn Nam (2, 3)
+	+ Phạm Ngọc Hiển (6)
+	+ Lưu Triệu Phương (3)
 
 -- Danh sách công việc:
 - Database:
-	+ [1] Xây dựng database
-	+ [3] Viết file sql, Xây dựng dữ liệu ảo (2)
+	+ [1] 01.Xây dựng database
+	+ [3] 02.Viết file sql, Xây dựng dữ liệu ảo (2)
 
 - Authenticate:
-	+ [1] Trang Login/register/forget (2)
-	+ [4] Điều hướng trang web theo role (3)
-	+ [5] Json web token (5)
+	+ [1] 03.Trang Login/register/forget (2)
+	+ [4] 04.Điều hướng trang web theo role (3)
+	+ [5] 05.Json web token (5)
 
 - Student dashboard:
-	+ [1] Hiện thông tin cá nhân sinh viên kèm 1 số chỉ số học tập (2)
-	+ [1] Hiện kết quả học tập theo bảng (giống daa) (3)
-	+ [3] Hiện tiến độ chuẩn đầu ra (2)
-	+ [3] Hiện tiến độ chuẩn môn học (2)
+	+ [1] 06.Hiện thông tin cá nhân sinh viên kèm 1 số chỉ số học tập (2)
+	+ [1] 07.Hiện kết quả học tập theo bảng (giống daa) (3)
+	+ [3] 08.Hiện tiến độ chuẩn đầu ra (2)
+	+ [3] 10.Hiện tiến độ chuẩn môn học (2)
 
 - Teacher dashboard:
-	+ [3] Hiện thông tin cá nhân giáo viên kèm thống kê quá trình giảng dạy (4)
-	+ [2] Quản lý lớp (danh sách sinh viên, cập nhật điểm thi) (4)
+	+ [3] 11.Hiện thông tin cá nhân giáo viên kèm thống kê quá trình giảng dạy (4)
+	+ [2] 12.Quản lý lớp (danh sách sinh viên, cập nhật điểm thi) (4)
 
 - Dean dashboard:
-	+ [3] Hiện thông tin giáo viên (1)
-	+ [2] Quản lý giáo viên (Danh sách giáo viên kèm quá trình giảng dạy)(4)
+	+ [3] 13.Hiện thông tin giáo viên (1)
+	+ [2] 14.Quản lý giáo viên (Danh sách giáo viên kèm quá trình giảng dạy)(4)
 
 - Advisor dashboard:
-	+ [4] Hiện thông tin giáo viên (1)
-	+ [3] Quản lý sinh viên lớp sinh hoạt (4)
+	+ [4] 15.Hiện thông tin giáo viên (1)
+	+ [3] 16.Quản lý sinh viên lớp sinh hoạt (4)
 
 - Report + slide:
-	+ [3] Viết file báo cáo và làm slide (4)
+	+ [3] 17.Viết file báo cáo và làm slide (4)
 
 -
