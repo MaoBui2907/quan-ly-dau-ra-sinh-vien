@@ -19,7 +19,7 @@
 	+ [3] Hiện tiến độ chuẩn môn học (2)
 
 - Teacher dashboard:
-	+ [3] Hiện thông tin cá nhân giáo viên kèm thống kê quá trình giảng dạy (3)
+	+ [3] Hiện thông tin cá nhân giáo viên kèm thống kê quá trình giảng dạy (4)
 	+ [2] Quản lý lớp (danh sách sinh viên, cập nhật điểm thi) (4)
 
 - Dean dashboard:
