@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>ĐĂNG KÝ</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,25 +47,30 @@
                 <div class="login-form">
                     <form>
                         <div class="form-group">
-                            <label>User Name</label>
-                            <input type="email" class="form-control" placeholder="User Name">
+                            <h5>Tên đăng nhập <t style="color:red">*</t></h5>
+                        </p>
+                            <input type="email" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <h5>Email <t style="color:red">*</t></h5>
+                        </p>
+                            <input type="email" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <h5>Mật khẩu <t style="color:red">*</t></h5>
+                        </p>
+                            <input type="password" class="form-control">
                         </div>
                         <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Agree the terms and policy
-                            </label>
+                            <h5>
+                                <input type="checkbox"> Đồng ý thực hiện mọi điều khoản và chính sách
+                            </h5>
+                        </p>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">ĐĂNG KÝ</button>
+                    </p>
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="/login"> Sign in</a></p>
+                            <p>Đã có tài khoản? <a href="/login"> ĐĂNG NHẬP</a></p>
                         </div>
                     </form>
                 </div>

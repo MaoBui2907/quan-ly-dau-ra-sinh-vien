@@ -11,6 +11,9 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
+p{
+    line-height: 2.5;
+}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,6 +37,7 @@
 
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 </head>
+
 <body class="bg-dark">
 
     <div class="sufee-login d-flex align-content-center flex-wrap">
@@ -47,12 +51,12 @@
                 <div class="login-form">
                     <form action="/login" method="POST">
                         <div class="form-group">
-                            <h5>Tên truy cập *</h5>
+                            <h5>Tên truy cập <t style="color:red">*</t></h5>
                             </p>
                             <input type="email" class="form-control" name="email">
                         </div>
                         <div class="form-group">
-                            <h5>Mật khẩu *</h5>
+                            <h5>Mật khẩu <t style="color:red">*</t></h5>
                         </p>
                             <input type="password" class="form-control" name="password">
                         </div>
@@ -66,6 +70,7 @@
                         </div>
                         <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
                         <div class="register-link m-t-15 text-center">
+                        </p>
                             <p>Chưa có tài khoản? <a href="/register"> Đăng ký</a></p>
                         </div>
                     </form>
