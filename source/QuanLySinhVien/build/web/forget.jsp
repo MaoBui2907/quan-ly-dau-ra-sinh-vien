@@ -14,7 +14,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Ela Admin - HTML5 Admin Template</title>
+    <title>QUÊN TÀI KHOẢN</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -46,10 +46,11 @@
                 <div class="login-form">
                     <form>
                         <div class="form-group">
-                            <label>Email address</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <h5>Tài khoản Email <t style="color:red">*</t></h5>
+                        </p>
+                            <input type="email" class="form-control">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-flat m-b-15">Submit</button>
+                        <button type="submit" class="btn btn-primary btn-flat m-b-15">GỬI</button>
                     </form>
                 </div>
             </div>
