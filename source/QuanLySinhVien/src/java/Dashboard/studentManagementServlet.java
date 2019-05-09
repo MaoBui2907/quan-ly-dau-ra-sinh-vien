@@ -14,6 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Dictionary;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author nguyenmao
@@ -43,6 +52,21 @@ public class studentManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher view = null;
+        Dictionary dict = null;
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String url = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
+            Connection con = DriverManager.getConnection(url, "sa", "Maonguyen1998");
+            Statement statement = con.createStatement();
+            String query = "Select HocKy from GiangDay";
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(studentManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         request.setAttribute("title", "Quản lý sinh viên");
         view = request.getRequestDispatcher("studentManagement.jsp");
         view.forward(request, response);
