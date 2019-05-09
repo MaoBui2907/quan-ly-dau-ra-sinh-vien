@@ -35,7 +35,7 @@ public class DashboardServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher view = null;
-        String role = (String) request.getSession().getAttribute("role");
+        String role = (String) request.getAttribute("role");
         if (role.equals("admin")) {
             request.setAttribute("title", "Trang quản lý admin");
             request.setAttribute("role", "admin");

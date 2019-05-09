@@ -53,7 +53,7 @@ p{
                         <div class="form-group">
                             <h5>Tên truy cập <t style="color:red">*</t></h5>
                             </p>
-                            <input type="email" class="form-control" name="email">
+                            <input type="text" class="form-control" name="email">
                         </div>
                         <div class="form-group">
                             <h5>Mật khẩu <t style="color:red">*</t></h5>

@@ -23,62 +23,23 @@
             <nav class="navbar navbar-expand-sm navbar-default">
                 <div id="main-menu" class="main-menu collapse navbar-collapse">
                     <% String role = (String) request.getAttribute("role");%>
-                    <c:choose>
-                        <c:when test="${role==\"student\"}" >
-                            <ul class="nav navbar-nav">
-                                <li class="active">
-                                    <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin sinh viên</a>
-                                </li>
-                                <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
-                                <li class="">
-                                    <a href="#"><i class="menu-icon fa fa-fire"></i>Kết quả học tập</a>
-                                </li>
-                                <li class="menu-item-has-children dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
-                                    <ul class="sub-menu children dropdown-menu">                            
-                                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Chuẩn đầu ra</a></li>
-                                        <li><i class="fa fa-bar-chart"></i><a href="ui-buttons.html">Lớp học</a></li>
-                                    </ul>
-                                </li>
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin sinh viên</a>
+                        </li>
+                        <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
+                        <li class="">
+                            <a href="#"><i class="menu-icon fa fa-fire"></i>Kết quả học tập</a>
+                        </li>
+                        <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
+                            <ul class="sub-menu children dropdown-menu">                            
+                                <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Chuẩn đầu ra</a></li>
+                                <li><i class="fa fa-bar-chart"></i><a href="ui-buttons.html">Lớp học</a></li>
                             </ul>
-                        </c:when>
-                        <c:when test="${role==\"admin\"}">
-                            <ul class="nav navbar-nav">
-                                <li class="active">
-                                    <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin quản lý</a>
-                                </li>
-                                <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
-                                <li class="">
-                                    <a href="#"><i class="menu-icon fa fa-fire"></i>Kết quả học tập</a>
-                                </li>
-                                <li class="menu-item-has-children dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
-                                    <ul class="sub-menu children dropdown-menu">                            
-                                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Chuẩn đầu ra</a></li>
-                                        <li><i class="fa fa-bar-chart"></i><a href="ui-buttons.html">Lớp học</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </c:when>
-                        <c:when test="${role==\"teacher\"}">
-                            <ul class="nav navbar-nav">
-                                <li class="active">
-                                    <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin giáo viên</a>
-                                </li>
-                                <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
-                                <li class="">
-                                    <a href="#"><i class="menu-icon fa fa-fire"></i>Quá trình giảng dạy</a>
-                                </li>
-                                <li class="menu-item-has-children dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
-                                    <ul class="sub-menu children dropdown-menu">                            
-                                        <li><i class="fa fa-puzzle-piece"></i><a href="ui-buttons.html">Chuẩn đầu ra</a></li>
-                                        <li><i class="fa fa-bar-chart"></i><a href="ui-buttons.html">Lớp học</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </c:when>
-                    </c:choose>
+                        </li>
+                    </ul>
+
                 </div><!-- /.navbar-collapse -->
             </nav>
         </aside>
