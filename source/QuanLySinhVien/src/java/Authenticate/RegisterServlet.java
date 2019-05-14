@@ -7,6 +7,13 @@ package Authenticate;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,7 +70,29 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("user");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        try {
+            // TODO add your handling code here:
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            String connectionURL;
+            connectionURL = "jdbc:sqlserver://DESKTOP-KK4SMEM\\SQLEXPRESS:1433;instance=SQLEXPRESS;databaseName=QL_ChuanDauRa";
+            Connection conn = DriverManager.getConnection(connectionURL, "sa", "23051998");
+
+            Statement statement = conn.createStatement();
+            String query = "select * from SinhVien where USERNAME = '" + username + "' and EMAIL ='" + email + "' and PASSWORD='" + password + "'";
+            ResultSet rs = statement.executeQuery(query);
+            if (rs.next() != true) {
+                //request.setAttribute("role", "student");
+                //request.setAttribute("studentID", rs.getString("MSSV"));
+                //response.sendRedirect("/homepage");
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(RegisterServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
