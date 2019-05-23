@@ -24,6 +24,7 @@
             th     { background: #ffffff; }
         </style>
 
+        <%@page import="java.sql.Connection, java.sql.DriverManager, java.sql.ResultSet, java.sql.SQLException, java.sql.Statement"%>
     </head>
 
     <body>
@@ -72,17 +73,33 @@
                                 <div class="card-body">
                                     <h4 class="box-title">QUẢN LÝ LỚP HỌC</h4>
                                 </div>
+
                                 <div class="card-body">
                                     <div class="row">
+                                        <%
+                                            try {
+                                                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                                                String url = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
+                                                Connection con = DriverManager.getConnection(url, "sa", "Maonguyen1998");
+                                                Statement statement = con.createStatement();
+                                                String queryYear = "Select distinct NamHoc from GiangDay";
+                                                ResultSet years = statement.executeQuery(queryYear);
+                                        %>
                                         <div class="col-12">
                                             <form action="/quanlysinhvien" method="POST">
                                                 <div class="row">
                                                     <div class="form-group col-md-3 col-sm-12">
                                                         <label for="year">Năm học</label>
-                                                        <select class="form-control " name="year" id="year" value="02">
-                                                            <option value="">2018</option>                                                    
-                                                            <option value="02">2019</option>
-                                                            <option value="03">2020</option>
+                                                        <select class="form-control " name="year" id="year">
+                                                            <%
+                                                                while (years.next()) {
+                                                            %>
+
+                                                            <option value="<% out.print(years.getString(1)); %>"><%out.print(years.getString(1));%></td>
+
+                                                                <%
+                                                                    }
+                                                                %>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-3 col-sm-12">
@@ -223,6 +240,10 @@
                                                 </table>
                                             </div>
                                         </div>
+                                        <% } catch (SQLException e) {
+                                                out.print(e.getMessage());
+                                            }
+                                        %>
                                         <div class="col-12">
                                             <form action="/quanlysinhvien" method="POST">
                                                 <div class="row">
@@ -258,7 +279,18 @@
 
         <!--Local Stuff-->
         <script>
-            
+            $('#year').change(function () {
+                $.ajax({
+                    url: "/quanlysinhvien",
+                    method: "POST",
+                    data: {
+                        "ACTION": "getTerm",
+                        "YEAR": $(this).val()},
+                    success: function (result) {
+                        console.log(result)
+                    }
+                })
+            })
         </script>
     </body>
 </html>

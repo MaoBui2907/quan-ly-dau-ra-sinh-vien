@@ -5,6 +5,7 @@
  */
 package Dashboard;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -19,6 +20,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,7 @@ import java.util.logging.Logger;
 @WebServlet(name = "studentManagementServlet", urlPatterns = {"/quanlysinhvien"})
 public class studentManagementServlet extends HttpServlet {
 
+    private msgv;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,21 +55,6 @@ public class studentManagementServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher view = null;
-        Dictionary dict = null;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            String url = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
-            Connection con = DriverManager.getConnection(url, "sa", "Maonguyen1998");
-            Statement statement = con.createStatement();
-            String query = "Select HocKy from GiangDay";
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(studentManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         request.setAttribute("title", "Quản lý sinh viên");
         view = request.getRequestDispatcher("studentManagement.jsp");
         view.forward(request, response);
@@ -83,7 +71,24 @@ public class studentManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        if ("getTerm".equals(request.getParameter("ACTION"))) {
+            try {
+                ArrayList<String> terms = new ArrayList<String>();
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
+                Connection con = DriverManager.getConnection(url, "sa", "Maonguyen1998");
+                Statement statement = con.createStatement();
+                String query = "Select HocKy from GiangDay where MAGV=";
+                ResultSet rs = statement.executeQuery(query);
+                while (rs.next()) {
+                    terms.add(rs.getString(1));
+                }
+                String[] termsList = terms.stream().toArray(String[]::new);
+                response.getWriter().write(new Gson().toJson(termsList));
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(studentManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
