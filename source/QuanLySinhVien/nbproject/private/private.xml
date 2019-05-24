@@ -4,13 +4,23 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/RegisterServlet.java</file>
-            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dashboard/DashboardServlet.java</file>
-            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/register.jsp</file>
-            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/LoginServlet.java</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/scripts.jsp</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/assets/js/widgets.js</file>
             <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/index.jsp</file>
-            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/login.jsp</file>
             <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/forget.jsp</file>
             <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/ForgetPasswordServlet.java</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/assets/js/dashboard.js</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/footer.jsp</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/quanly.jsp</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dashboard/DashboardServlet.java</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/AuthServlet.java</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/font-fontawesome.html</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/register.jsp</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/LoginServlet.java</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/assets/js/main.js</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/login.jsp</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/font-themify.html</file>
+            <file>file:/C:/Users/Cao%20Nam/Documents/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/assets/js/vmap.sampledata.js</file>
         </group>
     </open-files>
 </project-private>
