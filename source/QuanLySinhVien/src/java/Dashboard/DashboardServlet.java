@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,16 +36,30 @@ public class DashboardServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher view = null;
-        String role = (String) request.getAttribute("role");
-        if (role.equals("admin")) {
-            request.setAttribute("title", "Trang quản lý admin");
-            request.setAttribute("role", "admin");
-            view = request.getRequestDispatcher("index.jsp");
-        } else if (role.equals("student")) {
-            request.setAttribute("role", "student");
-            view = request.getRequestDispatcher("index.jsp");
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            String role = (String) session.getAttribute("role");
+            switch (role) {
+                case "teacher":
+                    request.setAttribute("title", "Bảng điều khiển giáo viên");
+                    request.setAttribute("role", "admin");
+                    view = request.getRequestDispatcher("homepage.jsp");
+                    break;
+                case "student":
+                    request.setAttribute("title", "Bảng điều khiển sinh viên");
+                    request.setAttribute("role", "student");
+                    view = request.getRequestDispatcher("homepage.jsp");
+                    break;
+                case "dean":
+                    request.setAttribute("title", "Bảng điều khiển trưởng khoa");
+                    request.setAttribute("role", role);
+                    view = request.getRequestDispatcher("homepage.jsp");
+                    break;
+            }
+            view.include(request, response);
+        } else {
+            response.sendRedirect("/login");
         }
-        view.forward(request, response);
     }
 
     /**

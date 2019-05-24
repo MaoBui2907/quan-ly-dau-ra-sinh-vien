@@ -32,7 +32,6 @@ import java.util.logging.Logger;
 @WebServlet(name = "studentManagementServlet", urlPatterns = {"/quanlysinhvien"})
 public class studentManagementServlet extends HttpServlet {
 
-    private msgv;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -56,7 +55,7 @@ public class studentManagementServlet extends HttpServlet {
             throws ServletException, IOException {
         RequestDispatcher view = null;
         request.setAttribute("title", "Quản lý sinh viên");
-        view = request.getRequestDispatcher("studentManagement.jsp");
+        view = request.getRequestDispatcher("/teacher/studentManagement.jsp");
         view.forward(request, response);
     }
 

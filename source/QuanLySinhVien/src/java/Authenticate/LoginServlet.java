@@ -6,6 +6,7 @@ package Authenticate;
  * and open the template in the editor.
  */
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,7 +40,6 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      * @throws java.lang.ClassNotFoundException
      */
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -51,7 +52,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("title", "Đăng nhập");
         RequestDispatcher view = request.getRequestDispatcher("login.jsp");
         view.forward(request, response);
     }
@@ -69,32 +71,42 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = request.getParameter("password");
-
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
         try {
             // TODO add your handling code here:
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionURL;
-            connectionURL = "jdbc:sqlserver://DESKTOP-KK4SMEM\\SQLEXPRESS:1433;instance=SQLEXPRESS;databaseName=QL_ChuanDauRa";
-            Connection conn = DriverManager.getConnection(connectionURL, "sa", "23051998");
-
+            connectionURL = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
+            Connection conn = DriverManager.getConnection(connectionURL, "sa", "Maonguyen1998");
             Statement statement = conn.createStatement();
-            String query = "select * from SinhVien where USERNAME = '" + username + "' and PASSWORD='" + password + "'";
-            ResultSet rs = statement.executeQuery(query);
-            if (rs.next()) {
-                request.setAttribute("role", "student");
-                request.setAttribute("studentID", rs.getString("MSSV"));
-                response.sendRedirect("/homepage");
-            }
-            
-            String query2 = "select * from Giaovien where username = '" + username + "' and password='" + password + "'";
-            ResultSet rs2 = statement.executeQuery(query2);
-            if (rs2.next()) {
-                request.getSession().setAttribute("role", "teacher");
-                request.setAttribute("teacherID", rs2.getString("MSGV"));
-                response.sendRedirect("/homepage");
+            String studentQuery = "select * from SinhVien where USERNAME = '" + username + "' and PASSWORD='" + password + "'";
+            ResultSet student = statement.executeQuery(studentQuery);
+            if (student.next()) {
+                HttpSession session = request.getSession();
+                session.setAttribute("role", "student");
+                session.setAttribute("studentID", student.getString("MSSV"));
+                response.sendRedirect("/");
+            } else {
+                String teacherQuery = "select * from Giaovien where username = '" + username + "' and password='" + password + "'";
+                ResultSet teacher = statement.executeQuery(teacherQuery);
+                if (teacher.next()) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("teacherID", teacher.getString("MSGV"));
+                    String deanQuery = "select * from QUANLY where MATK='" + teacher.getString("MSGV") + "'";
+                    ResultSet dean = statement.executeQuery(deanQuery);
+                    if (dean.next()) {
+                        session.setAttribute("role", "teacher");
+                    } else {
+                        session.setAttribute("role", "dean");
+                    }
+                    response.sendRedirect("/");
+                } else {
+                    out.print("Mật khẩu không chính xác");
+                }
             }
         } catch (ClassNotFoundException | SQLException e) {
-
+            out.print("Có lỗi xảy ra" + e);
         }
     }
 
