@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("title", "Đăng nhập");
         RequestDispatcher view = request.getRequestDispatcher("login.jsp");
         view.forward(request, response);
@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("email");
         String password = request.getParameter("password");
-        response.setContentType("text/html");
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             // TODO add your handling code here:
@@ -102,6 +102,7 @@ public class LoginServlet extends HttpServlet {
                     }
                     response.sendRedirect("/");
                 } else {
+                    
                     out.print("Mật khẩu không chính xác");
                 }
             }
