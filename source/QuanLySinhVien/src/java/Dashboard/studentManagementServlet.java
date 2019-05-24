@@ -3,23 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Dashboard;
 
+import com.google.gson.Gson;
 import java.io.IOException;
-
+import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author Nguyen Mao
+ * @author nguyenmao
  */
-import javax.servlet.RequestDispatcher;
-@WebServlet(urlPatterns = {"/home"})
-public class homepageServlet extends HttpServlet {
+@WebServlet(name = "studentManagementServlet", urlPatterns = {"/quanlysinhvien"})
+public class studentManagementServlet extends HttpServlet {
 
+    private msgv;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,18 +42,6 @@ public class homepageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("widgets.html");
-        view.forward(request, response);
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -53,7 +54,10 @@ public class homepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher view = null;
+        request.setAttribute("title", "Quản lý sinh viên");
+        view = request.getRequestDispatcher("studentManagement.jsp");
+        view.forward(request, response);
     }
 
     /**
@@ -67,7 +71,24 @@ public class homepageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        if ("getTerm".equals(request.getParameter("ACTION"))) {
+            try {
+                ArrayList<String> terms = new ArrayList<String>();
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                String url = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
+                Connection con = DriverManager.getConnection(url, "sa", "Maonguyen1998");
+                Statement statement = con.createStatement();
+                String query = "Select HocKy from GiangDay where MAGV=";
+                ResultSet rs = statement.executeQuery(query);
+                while (rs.next()) {
+                    terms.add(rs.getString(1));
+                }
+                String[] termsList = terms.stream().toArray(String[]::new);
+                response.getWriter().write(new Gson().toJson(termsList));
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(studentManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
