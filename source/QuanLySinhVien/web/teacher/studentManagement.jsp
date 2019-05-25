@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
-                                <div class="card-body">
+                                <div class="card-header">
                                     <h4 class="box-title">QUẢN LÝ LỚP HỌC</h4>
                                 </div>
 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Authenticate;
+package Student;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,29 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Nguyen Mao
+ * @author nguyenmao
  */
-@WebServlet(name = "ForgetPasswordServlet", urlPatterns = {"/forget"})
-public class ForgetPasswordServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        RequestDispatcher view = request.getRequestDispatcher("authenticate/forget.jsp");
-        view.forward(request, response);
-    }
+@WebServlet(name = "ClassManagementServlet", urlPatterns = {"/ClassManagementServlet"})
+public class ClassManagementServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -49,7 +34,16 @@ public class ForgetPasswordServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        RequestDispatcher view = null;
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.setAttribute("title", "Bảng điểm sinh viên");
+            view = request.getRequestDispatcher("/student/pointTable.jsp");
+            view.include(request, response);
+        } else {
+            response.sendRedirect("/login");
+        }
     }
 
     /**

@@ -12,14 +12,14 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
     <head>
-        <jsp:include page="partials/head.jsp"/>
+        <jsp:include page="../partials/head.jsp"/>
     </head>
     <body class="bg-dark">
         <div class="sufee-login d-flex align-content-center flex-wrap">
             <div class="container">
                 <div class="login-content">
                     <div class="login-logo">
-                        <a href="index.html">
+                        <a href="/homepage">
                             <img class="align-content" src="images/logo.png" alt="">
                         </a>
                     </div>
@@ -27,12 +27,10 @@
                         <form action="/login" method="POST">
                             <div class="form-group">
                                 <h5>Tên truy cập <t style="color:red">*</t></h5>
-                                </p>
                                 <input type="text" class="form-control" name="email">
                             </div>
                             <div class="form-group">
                                 <h5>Mật khẩu <t style="color:red">*</t></h5>
-                                </p>
                                 <input type="password" class="form-control" name="password">
                             </div>
                             <div class="checkbox">
@@ -40,19 +38,15 @@
                                     <input type="checkbox"> Nhớ mật khẩu
                                 </label>
                                 <label class="pull-right">
-                                    <a href="/forget">Quên tài khoản?</a>
+                                    <a href="/forget">Quên mật khẩu?</a>
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
-                            <div class="register-link m-t-15 text-center">
-                                </p>
-                                <p>Chưa có tài khoản? <a href="/register"> Đăng ký</a></p>
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <jsp:include page="partials/scripts.jsp"/>
+        <jsp:include page="../partials/scripts.jsp"/>
     </body>
 </html>

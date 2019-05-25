@@ -1,5 +1,5 @@
 <%-- 
-    Document   : 404
+    Document   : error
     Created on : May 24, 2019, 8:33:39 PM
     Author     : nguyenmao
 --%>
@@ -11,7 +11,7 @@
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <title>404 | Error</title>
+        <title>Error</title>
         <style>
             h4{
                 color: #253858;
@@ -234,7 +234,7 @@
                 <div class="row">
                     <div class="col-md-12 ">
                         <div class="error-text">
-                            <h1 class="error">404 Error</h1>
+                            <h1 class="error">Error</h1>
                             <div class="im-sheep">
                                 <div class="top">
                                     <div class="body"></div>
@@ -252,8 +252,8 @@
                                     <div class="im-leg"></div>
                                 </div>
                             </div>
-                            <h4>Oops! This page Could Not Be Found!</h4>
-                            <p>Sorry bit the page you are looking for does not exist, have been removed or name changed.</p>
+                            <h4>Something just ...</h4>
+                            <p><%= request.getSession().getAttribute("error")%></p>
                             <a href="/homepage" class="btn btn-primary btn-round">Go to homepage</a>
                         </div>
                     </div>

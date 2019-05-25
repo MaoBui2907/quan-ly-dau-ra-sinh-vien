@@ -109,7 +109,7 @@
                         <!--  Traffic  -->
                         <div class="col-lg-12">
                             <div class="card border border-primary">
-                                <div class="card-body">
+                                <div class="card-header">
                                     <h4 class="box-title"><%= request.getSession().getAttribute("title")%></h4>
                                 </div>
                                 <div class="row">

@@ -40,7 +40,7 @@
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
-                    <a href="index.html">
+                    <a href="/homepage">
                         <img class="align-content" src="images/logo.png" alt="">
                     </a>
                 </div>
@@ -48,27 +48,22 @@
                     <form>
                         <div class="form-group">
                             <h5>Tên đăng nhập <t style="color:red">*</t></h5>
-                        </p>
                             <input type="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <h5>Email <t style="color:red">*</t></h5>
-                        </p>
                             <input type="email" class="form-control">
                         </div>
                         <div class="form-group">
                             <h5>Mật khẩu <t style="color:red">*</t></h5>
-                        </p>
                             <input type="password" class="form-control">
                         </div>
                         <div class="checkbox">
                             <h5>
                                 <input type="checkbox"> Đồng ý thực hiện mọi điều khoản và chính sách
                             </h5>
-                        </p>
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">ĐĂNG KÝ</button>
-                    </p>
                         <div class="register-link m-t-15 text-center">
                             <p>Đã có tài khoản? <a href="/login"> ĐĂNG NHẬP</a></p>
                         </div>

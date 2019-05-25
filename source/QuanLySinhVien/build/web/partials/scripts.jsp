@@ -13,8 +13,7 @@
 <script src="../assets/js/main.js"></script>
 <script>
     var $jq = jQuery.noConflict();
-    $jq("#logout").click(function (e) {
-        console.log("logout")
+    $jq(".logout").click(function (e) {
         $jq.post("/logout")
     })
 </script>
