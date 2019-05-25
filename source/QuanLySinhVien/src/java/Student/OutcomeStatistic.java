@@ -19,8 +19,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author nguyenmao
  */
-@WebServlet(name = "PointTableServlet", urlPatterns = {"/bangdiemsinhvien"})
-public class PointTableServlet extends HttpServlet {
+@WebServlet(name = "OutcomeStatistic", urlPatterns = {"/quatrinhrenluyen"})
+public class OutcomeStatistic extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,14 +30,13 @@ public class PointTableServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("role") == "student") {
             session.setAttribute("title", "Bảng điểm sinh viên");
-            view = request.getRequestDispatcher("/student/pointTable.jsp");
+            view = request.getRequestDispatcher("/student/outcomeStatistic.jsp");
             view.include(request, response);
         } else {
             response.sendRedirect("/login");
         }
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";
