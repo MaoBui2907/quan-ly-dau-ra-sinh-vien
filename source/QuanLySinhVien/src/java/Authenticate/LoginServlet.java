@@ -86,23 +86,22 @@ public class LoginServlet extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("role", "student");
                 session.setAttribute("studentID", student.getString("MSSV"));
-                response.sendRedirect("/");
+                response.sendRedirect("/homepage");
             } else {
                 String teacherQuery = "select * from Giaovien where username = '" + username + "' and password='" + password + "'";
                 ResultSet teacher = statement.executeQuery(teacherQuery);
                 if (teacher.next()) {
                     HttpSession session = request.getSession();
-                    session.setAttribute("teacherID", teacher.getString("MSGV"));
-                    String deanQuery = "select * from QUANLY where MATK='" + teacher.getString("MSGV") + "'";
+                    session.setAttribute("teacherID", teacher.getString("MAGV"));
+                    String deanQuery = "select * from QUANLY where MATK='" + teacher.getString("MAGV") + "'";
                     ResultSet dean = statement.executeQuery(deanQuery);
                     if (dean.next()) {
                         session.setAttribute("role", "teacher");
                     } else {
                         session.setAttribute("role", "dean");
                     }
-                    response.sendRedirect("/");
+                    response.sendRedirect("/homepage");
                 } else {
-                    
                     out.print("Mật khẩu không chính xác");
                 }
             }

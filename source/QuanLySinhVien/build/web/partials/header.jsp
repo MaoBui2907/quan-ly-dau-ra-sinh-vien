@@ -95,10 +95,11 @@
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="/logout"><i class="fa fa-power -off"></i>Logout</a>
+                    <a class="nav-link" href="" id="logout"><i class="fa fa-power -off"></i>Logout</a>
                 </div>
             </div>
 
         </div>
     </div>
+    
 </header>

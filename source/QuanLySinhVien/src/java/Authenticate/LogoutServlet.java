@@ -34,6 +34,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.invalidate();
+        response.sendRedirect("/homepage");
     }
 
     /**

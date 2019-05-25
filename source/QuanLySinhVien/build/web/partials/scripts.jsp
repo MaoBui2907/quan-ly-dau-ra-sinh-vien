@@ -11,3 +11,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="../assets/js/main.js"></script>
+<script>
+    var $jq = jQuery.noConflict();
+    $jq("#logout").click(function (e) {
+        console.log("logout")
+        $jq.post("/logout")
+    })
+</script>

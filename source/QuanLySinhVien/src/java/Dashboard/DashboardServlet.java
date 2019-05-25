@@ -41,18 +41,18 @@ public class DashboardServlet extends HttpServlet {
             String role = (String) session.getAttribute("role");
             switch (role) {
                 case "teacher":
-                    request.setAttribute("title", "Bảng điều khiển giáo viên");
-                    request.setAttribute("role", "admin");
+                    request.getSession().setAttribute("title", "Bảng điều khiển giáo viên");
+                    request.getSession().setAttribute("role", "admin");
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
                 case "student":
-                    request.setAttribute("title", "Bảng điều khiển sinh viên");
-                    request.setAttribute("role", "student");
+                    request.getSession().setAttribute("title", "Bảng điều khiển sinh viên");
+                    request.getSession().setAttribute("role", "student");
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
                 case "dean":
-                    request.setAttribute("title", "Bảng điều khiển trưởng khoa");
-                    request.setAttribute("role", role);
+                    request.getSession().setAttribute("title", "Bảng điều khiển trưởng khoa");
+                    request.getSession().setAttribute("role", role);
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
             }
