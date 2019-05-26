@@ -22,15 +22,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "DashboardServlet", urlPatterns = {"/homepage"})
 public class DashboardServlet extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,17 +33,14 @@ public class DashboardServlet extends HttpServlet {
             switch (role) {
                 case "teacher":
                     request.getSession().setAttribute("title", "Bảng điều khiển giáo viên");
-                    request.getSession().setAttribute("role", "admin");
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
                 case "student":
                     request.getSession().setAttribute("title", "Bảng điều khiển sinh viên");
-                    request.getSession().setAttribute("role", "student");
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
                 case "dean":
                     request.getSession().setAttribute("title", "Bảng điều khiển trưởng khoa");
-                    request.getSession().setAttribute("role", role);
                     view = request.getRequestDispatcher("homepage.jsp");
                     break;
             }

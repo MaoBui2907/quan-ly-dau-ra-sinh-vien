@@ -12,8 +12,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Properties;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -30,15 +28,6 @@ import javax.swing.JOptionPane;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,17 +37,17 @@ public class LoginServlet extends HttpServlet {
         view.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //        read database config
+        Properties dbProps = new Properties();
+        dbProps.load(getServletContext().getResourceAsStream("/WEB-INF/classes/database.properties"));
+        String dbHost = dbProps.getProperty("dbURL");
+        String dbName = dbProps.getProperty("dbName");
+        String dbUser = dbProps.getProperty("dbUser");
+        String dbPassword = dbProps.getProperty("dbPassword");
+
         String username = request.getParameter("email");
         String password = request.getParameter("password");
         response.setContentType("text/html;charset=UTF-8");
@@ -67,8 +56,8 @@ public class LoginServlet extends HttpServlet {
             // TODO add your handling code here:
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String connectionURL;
-            connectionURL = "jdbc:sqlserver://localhost;databaseName=QL_ChuanDauRa";
-            Connection conn = DriverManager.getConnection(connectionURL, "sa", "Maonguyen1998");
+            String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
+            Connection conn = DriverManager.getConnection(url, dbUser, dbPassword);
             Statement statement = conn.createStatement();
             String studentQuery = "select * from SinhVien where USERNAME = '" + username + "' and PASSWORD='" + password + "'";
             ResultSet student = statement.executeQuery(studentQuery);
@@ -100,11 +89,6 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
