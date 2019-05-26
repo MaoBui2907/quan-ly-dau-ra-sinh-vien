@@ -95,7 +95,7 @@ public class ClassManagementServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null && (session.getAttribute("role") == "teacher" || session.getAttribute("role") == "dean")) {
-            ArrayList<String> studentList = new ArrayList<String>();
+            ArrayList<ArrayList<String>> studentList = new ArrayList<ArrayList<String>>();
             String classReq = (String) request.getParameter("class");
             String className = classReq.substring(0, 9);
             String term = classReq.substring(12, 13);
@@ -105,32 +105,26 @@ public class ClassManagementServlet extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryYear = "Select MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSS=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='" + className
+                String queryStudent = "Select MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSS=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='" + className
                         + "' and BANGDIEM.HOCKY='" + term
                         + "' and BANGDIEM.NAMHOC='" + year + "'";
-                ResultSet years = statement.executeQuery(queryYear);
+                ResultSet students = statement.executeQuery(queryStudent);
                 boolean isEnded = false;
-                while (years.next()) {
-                    String year = years.getString(1);
-                    String queryTerm = "Select distinct HocKy from GiangDay where MAGV='" + teacherID
-                            + "' and NAMHOC='" + year + "'";
-                    ResultSet terms = statement.executeQuery(queryTerm);
-                    while (terms.next()) {
-                        String term = terms.getString(1);
-                        String queryClass = "Select distinct MALOPHOC from GiangDay where MAGV='" + teacherID
-                                + "' and NAMHOC='" + year + "' and HOCKY='" + term + "'";
-                        ResultSet classes = statement.executeQuery(queryClass);
-                        while (classes.next()) {
-                            String className = classes.getString(1);
-                            classList.add(className + ".HK" + term + "." + year);
-                        }
-                    }
+                while (students.next()) {
+                    ArrayList<String> student = new ArrayList<String>();
+                    student.add(students.getString("MSSV"));
+                    student.add(students.getString("TENSV"));
+                    student.add(students.getString("DIEMQT"));
+                    student.add(students.getString("DIEMTH"));
+                    student.add(students.getString("DIEMGK"));
+                    student.add(students.getString("DIEMCK"));
+                    student.add(students.getString("DIEMTB"));
+                    studentList.add(student);
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            session.setAttribute("title", "Quản lý lớp học");
-            session.setAttribute("classes", classList);
+            session.setAttribute("students", studentList);
         } else {
             response.sendRedirect("/login");
         }

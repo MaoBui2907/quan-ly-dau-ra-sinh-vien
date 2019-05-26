@@ -54,9 +54,11 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <form action="/quanlysinhvien" method="POST">
-                                                <div class="row">
-                                                    <div class="form-group col-md-3 col-sm-6">
-                                                        <label for="year">Lớp học</label>
+                                                <div class="row form-group">
+                                                    <div class="col-md-2 offset-md-2 col-sm-12">
+                                                        <label class="form-control-label" for="year">Lớp học</label>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-12">
                                                         <select class="form-control" name="class" id="year">
                                                             <%
                                                                 ArrayList<String> classList = (ArrayList<String>) request.getSession().getAttribute("classes");
@@ -68,8 +70,8 @@
                                                             %>
                                                         </select>
                                                     </div>
-                                                    <div class="form-group col-md-3 col-sm-6">
-                                                        <button type="submit" class="form-control btn btn-primary" style="margin:30px 10px; width: 80%">Quản lý</button>
+                                                    <div class="form-group col-md-2 col-sm-12">
+                                                        <button type="submit" class="form-control btn btn-primary" style="">Quản lý</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -227,11 +229,10 @@
         <script>
             $('#year').change(function () {
                 $.ajax({
-                    url: "/quanlysinhvien",
+                    url: "/quanlylophoc",
                     method: "POST",
                     data: {
-                        "ACTION": "getTerm",
-                        "YEAR": $(this).val()},
+                        "class": $(this).val()},
                     success: function (result) {
                         console.log(result)
                     }
