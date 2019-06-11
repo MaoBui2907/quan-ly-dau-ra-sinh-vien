@@ -35,7 +35,6 @@
             <div class="content">
                 <!-- Animated -->
                 <div class="animated fadeIn row">
-                    <!-- Widgets  -->
                     <div class="row col-lg-12">
                         <div class="col-lg-3 col-md-6 widget">
                             <div class="card border border-primary">
@@ -47,7 +46,7 @@
                                         <div class="stat-content">
                                             <div class="text-left dib">
                                                 <div class="stat-text"><span class="count">12</span></div>
-                                                <div class="stat-heading">giáo viên</div>
+                                                <div class="stat-heading">Giáo viên khoa</div>
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +63,7 @@
                                         <div class="stat-content">
                                             <div class="text-left dib">
                                                 <div class="stat-text"><span class="count">70</span></div>
-                                                <div class="stat-heading">sinh viên</div>
+                                                <div class="stat-heading">Sinh viên khoa</div>
                                             </div>
                                         </div>
                                     </div>
@@ -81,7 +80,7 @@
                                         <div class="stat-content">
                                             <div class="text-left dib">
                                                 <div class="stat-text"><span class="count">2</span></div>
-                                                <div class="stat-heading">lớp giảng dạy</div>
+                                                <div class="stat-heading">Lớp giảng dạy</div>
                                             </div>
                                         </div>
                                     </div>
@@ -98,54 +97,52 @@
                                         <div class="stat-content">
                                             <div class="text-left dib">
                                                 <div class="stat-text"><span class="count">98</span> %</div>
-                                                <div class="stat-heading">đạt chuẩn ra trường</div>
+                                                <div class="stat-heading">TB Đạt chuẩn TN</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- /Widgets -->
-                        <!--  Traffic  -->
-                        <div class="col-lg-12">
-                            <div class="card border border-primary">
-                                <div class="card-header">
-                                    <h4 class="box-title"><%= request.getSession().getAttribute("title")%></h4>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-5 col-sm-12" style="padding: 10px 30px">
-                                                    <dl class="row">
-                                                        <dt class="col-sm-5">
-                                                        <i class="pe-7s-door-lock" style="color: blue"></i> MSGV</dt>
-                                                        <dd class="col-sm-7">SML0444</dd>
-                                                        <dt class="col-sm-5">
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="card border border-primary">
+                            <div class="card-header">
+                                <h4 class="box-title"><%= request.getSession().getAttribute("title")%></h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-12" style="padding: 10px 30px">
+                                                <dl class="row">
+                                                    <dt class="col-sm-5">
+                                                        <i class="pe-7s-door-lock" style="color: blue"></i> MS</dt>
+                                                    <dd class="col-sm-7"><%= request.getSession().getAttribute("id")%></dd>
+                                                    <dt class="col-sm-5">
                                                         <i class="pe-7s-user" style="color: green"></i> Họ tên</dt>
-                                                        <dd class="col-sm-7">Nguyễn Văn A</dd>
-                                                        <dt class="col-sm-5">
+                                                    <dd class="col-sm-7"><%= request.getSession().getAttribute("name")%></dd>
+                                                    <dt class="col-sm-5">
                                                         <i class="pe-7s-network" style="color: blue"></i> Khoa</dt>
-                                                        <dd class="col-sm-7">KH&KTTT</dd>
-                                                        <dt class="col-sm-5">
+                                                    <dd class="col-sm-7"><%= request.getSession().getAttribute("faculty")%></dd>
+                                                    <dt class="col-sm-5">
                                                         <i class="pe-7s-note" style="color: green"></i> Email</dt>
-                                                        <dd class="col-sm-7">nguyenvana@itt.edu.vn</dd>
-                                                        <dt class="col-sm-5">
+                                                    <dd class="col-sm-7"><%= request.getSession().getAttribute("email")%></dd>
+                                                    <dt class="col-sm-5">
                                                         <i class="pe-7s-keypad" style="color: blue"></i> SDT</dt>
-                                                        <dd class="col-sm-7">0233445454</dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="col-md-7 col-sm-12" style="padding:0px 40px">
-                                                    <canvas id="faculty-chart"></canvas>
-                                                </div>
+                                                    <dd class="col-sm-7"><%= '0' + (String) request.getSession().getAttribute("phone")%></dd>
+                                                </dl>
+                                            </div>
+                                            <div class="col-md-7 col-sm-12" style="padding:0px 40px">
+                                                <canvas id="analys-chart"></canvas>
                                             </div>
                                         </div>
                                     </div>
-                                </div> <!-- /.row -->
-                            </div>
-                        </div><!-- /# column -->
-                        <!--  /Traffic -->
-                    </div>
+                                </div>
+                            </div> <!-- /.row -->
+                        </div>
+                    </div><!-- /# column -->
+                    <!--  /Traffic -->
                     <!-- .animated -->
                 </div>
                 <!-- /.content -->
@@ -162,7 +159,7 @@
             <!--Local Stuff-->
             <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
             <script>
-                var ctx = document.getElementById("faculty-chart");
+                var ctx = document.getElementById("analys-chart");
                 ctx.height = 150;
                 var myChart = new Chart(ctx, {
                     type: 'line',
