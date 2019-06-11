@@ -53,13 +53,14 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12">
-                                            <form action="/quanlysinhvien" method="POST">
+                                            <form action="" method="">
                                                 <div class="row form-group">
                                                     <div class="col-md-2 offset-md-2 col-sm-12">
                                                         <label class="form-control-label" for="year">Lớp học</label>
                                                     </div>
                                                     <div class="col-md-4 col-sm-12">
-                                                        <select class="form-control" name="class" id="year">
+                                                        <select class="form-control" name="class" id="class" value="">
+                                                            <option value="">--Chọn lớp--</option>
                                                             <%
                                                                 ArrayList<String> classList = (ArrayList<String>) request.getSession().getAttribute("classes");
                                                                 for (String className : classList) {
@@ -71,7 +72,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-2 col-sm-12">
-                                                        <button type="submit" class="form-control btn btn-primary" style="">Quản lý</button>
+                                                        <button type="submit" class="form-control btn btn-primary manage" style="">Quản lý</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -80,7 +81,7 @@
                                         <div class="col-12" style="margin-top: 10px">
                                             <label style="">Danh sách sinh viên</label>
                                             <div class="header-fixed" style="margin-top: 5px">
-                                                <table class="table table-striped">
+                                                <table id="students" class="table table-striped">
                                                     <thead>
                                                         <tr>
                                                             <th>MSSV</th>
@@ -89,117 +90,23 @@
                                                             <th>Điểm giữa kỳ</th>
                                                             <th>Điểm thực hành</th>
                                                             <th>Điểm cuối kỳ</th>
+                                                            <th>Điểm TB</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>312354</th>
-                                                            <th>Đỗ Thị B</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Bùi Văn C</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>312354</th>
-                                                            <th>Đỗ Thị B</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Bùi Văn C</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Nguyễn Văn A</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>312354</th>
-                                                            <th>Đỗ Thị B</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>1652164</th>
-                                                            <th>Bùi Văn C</th>
-                                                            <th>9</th>
-                                                            <th>8.5</th>
-                                                            <th>8</th>
-                                                            <th>9</th>
-                                                        </tr> 
+                                                    <tbody id="studentList">
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                         <div class="col-12">
-                                            <form action="/quanlysinhvien" method="POST">
+                                            <form>
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-12">
-                                                        <button id="pointUpdate" class="btn btn-outline-info float-right" style="margin-top:30px">Cập nhật điểm thi</button>
+                                                        <button id="pointUpdate"  class="btn btn-outline-info float-right" style="margin-top:30px">Cập nhật điểm thi</button>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
-                                                        <button id="exportList" class="btn btn-outline-primary" style="margin-top:30px">Xuất danh sách sinh viên</button>
+                                                        <button id="exportList" onclick="fnExcelReport();" class="btn btn-outline-primary" style="margin-top:30px">Xuất danh sách sinh viên</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -211,7 +118,6 @@
                     </div><!-- /# column -->
                 </div>
                 <!--  /Traffic -->
-
             </div>
             <!-- .animated -->
         </div>
@@ -227,14 +133,49 @@
 
         <!--Local Stuff-->
         <script>
-            $('#year').change(function () {
-                $.ajax({
+            function fnExcelReport()
+            {
+                var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+                var textRange; var j=0;
+                tab = document.getElementById('students'); // id of table
+
+                for(j = 0 ; j < tab.rows.length ; j++) 
+                {     
+                    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                    //tab_text=tab_text+"</tr>";
+                }
+
+                tab_text=tab_text+"</table>";
+                tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+                tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+                tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE "); 
+
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+                {
+                    txtArea1.document.open("txt/html","replace");
+                    txtArea1.document.write(tab_text);
+                    txtArea1.document.close();
+                    txtArea1.focus(); 
+                    sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+                }  
+                else                 //other browser not tested on IE 11
+                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));  
+
+                return (sa);
+            }
+            $jq('.manage').click(function (e) {
+                e.preventDefault();
+                $jq.ajax({
                     url: "/quanlylophoc",
-                    method: "POST",
+                    method: "post",
                     data: {
-                        "class": $(this).val()},
-                    success: function (result) {
-                        console.log(result)
+                        "class": $jq("#class").val()
+                    },
+                    success: function(respone) {
+                        $jq("#studentList").html(respone)
                     }
                 })
             })

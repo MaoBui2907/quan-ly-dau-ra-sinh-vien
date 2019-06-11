@@ -11,7 +11,7 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <% String role = (String) request.getAttribute("role");%>
             <c:choose>
-                <c:when test="${role == \"student\"}">
+                <c:when test="${role eq 'student'}">
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin sinh viên</a>
@@ -36,7 +36,7 @@
                         </li>
                     </ul>
                 </c:when>
-                <c:when test="${role == \"teacher\" }">
+                <c:when test="${role eq 'teacher' }">
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin giáo viên</a>
@@ -61,7 +61,7 @@
                         </li>
                     </ul>
                 </c:when>
-                <c:when test="${role == \"dean\"}">
+                <c:when test="${role eq 'dean'}">
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin trưởng khoa</a>

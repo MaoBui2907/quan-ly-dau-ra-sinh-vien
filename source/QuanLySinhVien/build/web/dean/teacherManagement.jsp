@@ -19,6 +19,11 @@
             .subject:hover {
                 cursor: pointer
             }
+            .header-fixed    { overflow: auto; height: 300px; }
+            .header-fixed thead th { position: sticky; top: 0; }
+            table  { border-collapse: collapse; width: 100%; }
+            th, td { padding: 8px 16px; }
+            th     { background: #ffffff; }
         </style>
     </head>
 
@@ -43,48 +48,22 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card-body">
-                                        <table class="table table-hover border border-default">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Mã môn</th>
-                                                    <th scope="col">Tên môn</th>
-                                                    <th scope="col">Điểm QT</th>
-                                                    <th scope="col">Điểm GK</th>
-                                                    <th scope="col">Điểm TH</th>
-                                                    <th scope="col">Điểm CK</th>                                                    
-                                                    <th scope="col">Tổng kết</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="subject">
-                                                    <th scope="row">IS201</th>
-                                                    <td>Nhập môn độc dược</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>                                    
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                </tr>
-                                                <tr class="subject">
-                                                    <th scope="row">IS201</th>
-                                                    <td>Nhập môn độc dược</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>                                    
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                </tr>
-                                                <tr class="subject">
-                                                    <th scope="row">IS201</th>
-                                                    <td>Nhập môn độc dược</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>                                    
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                    <td>9.0</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                            <div class="header-fixed" style="margin-top: 5px">
+                                                <table id="teachers" class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>MSGV</th>
+                                                            <th>Họ tên</th>
+                                                            <th>Học hàm</th>
+                                                            <th>Học vị</th>
+                                                            <th>Số lớp</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="teacherList">
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                     </div>
                                 </div>
                             </div> <!-- /.row -->
@@ -130,8 +109,17 @@
 
             <!--Local Stuff-->
             <script>
-                $jq(".subject").click(function (e) {
+                $jq(document).ready(function(){
+                    $jq.ajax({
+                        url: "/quanlygiaovien",
+                        method: "post",
+                        success: function(respone) {
+                            $jq("#teacherList").html(respone)
+                        }
+                    })
+                })
 
+                $jq(".subject").click(function (e) {
                     $jq("#decriptionModal").modal('show');
                 })
             </script>

@@ -95,36 +95,34 @@ public class ClassManagementServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         if (session != null && (session.getAttribute("role") == "teacher" || session.getAttribute("role") == "dean")) {
-            ArrayList<ArrayList<String>> studentList = new ArrayList<ArrayList<String>>();
             String classReq = (String) request.getParameter("class");
             String className = classReq.substring(0, 9);
-            String term = classReq.substring(12, 13);
-            String year = classReq.substring(14, 16);
+            String term = classReq.substring(14, 15);
+            String year = classReq.substring(16, 20);
             try {
+                response.setContentType("text/html;charset=UTF-8");
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryStudent = "Select MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSS=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='" + className
-                        + "' and BANGDIEM.HOCKY='" + term
-                        + "' and BANGDIEM.NAMHOC='" + year + "'";
+                String queryStudent ="Select SINHVIEN.MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSV=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='" +
+                        className + "' and BANGDIEM.HOCKY=" + (String) term +" and BANGDIEM.NAMHOC=" + (String) year;
                 ResultSet students = statement.executeQuery(queryStudent);
                 boolean isEnded = false;
+                String resString = "";
                 while (students.next()) {
-                    ArrayList<String> student = new ArrayList<String>();
-                    student.add(students.getString("MSSV"));
-                    student.add(students.getString("TENSV"));
-                    student.add(students.getString("DIEMQT"));
-                    student.add(students.getString("DIEMTH"));
-                    student.add(students.getString("DIEMGK"));
-                    student.add(students.getString("DIEMCK"));
-                    student.add(students.getString("DIEMTB"));
-                    studentList.add(student);
+                    String tr = "<tr><td>" + students.getString("MSSV") +  "</td><td>" + 
+                            students.getString("TENSV") +"</td><td>"+ students.getString("DIEMQT") +"</td><td>" + 
+                            students.getString("DIEMTH") + "</td><td>" + students.getString("DIEMGK") +"</td><td>" + 
+                            students.getString("DIEMCK") + "</td><td>" + students.getString("DIEMTB") +"</td></tr>";
+                    resString += tr;
                 }
+                response.getWriter().write(resString);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
+                response.setContentType("text/plain");
+                response.getWriter().write("Loi truy van");
             }
-            session.setAttribute("students", studentList);
         } else {
             response.sendRedirect("/login");
         }
