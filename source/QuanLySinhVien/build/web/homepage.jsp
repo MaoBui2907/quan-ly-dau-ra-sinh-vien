@@ -7,7 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
@@ -45,8 +44,8 @@
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">12</span></div>
-                                                <div class="stat-heading">Giáo viên khoa</div>
+                                                <div class="stat-text"><span class="count"><%= request.getSession().getAttribute("widget0") %></span></div>
+                                                <div class="stat-heading"><%= request.getSession().getAttribute("label0") %></div>
                                             </div>
                                         </div>
                                     </div>
@@ -62,8 +61,8 @@
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">70</span></div>
-                                                <div class="stat-heading">Sinh viên khoa</div>
+                                                <div class="stat-text"><span class="count"><%= request.getSession().getAttribute("widget1") %></span></div>
+                                                <div class="stat-heading"><%= request.getSession().getAttribute("label1") %></div>
                                             </div>
                                         </div>
                                     </div>
@@ -79,8 +78,8 @@
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">2</span></div>
-                                                <div class="stat-heading">Lớp giảng dạy</div>
+                                                <div class="stat-text"><span class="count"><%= request.getSession().getAttribute("widget2") %></span></div>
+                                                <div class="stat-heading"><%= request.getSession().getAttribute("label2") %></div>
                                             </div>
                                         </div>
                                     </div>
@@ -96,8 +95,8 @@
                                         </div>
                                         <div class="stat-content">
                                             <div class="text-left dib">
-                                                <div class="stat-text"><span class="count">98</span> %</div>
-                                                <div class="stat-heading">TB Đạt chuẩn TN</div>
+                                                <div class="stat-text"><span class="count"><%= request.getSession().getAttribute("widget3") %></span> %</div>
+                                                <div class="stat-heading"><%= request.getSession().getAttribute("label3") %></div>
                                             </div>
                                         </div>
                                     </div>

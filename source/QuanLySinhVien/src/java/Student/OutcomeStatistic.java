@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author nguyenmao
  */
-@WebServlet(name = "OutcomeStatistic", urlPatterns = {"/quatrinhrenluyen"})
+@WebServlet(name = "OutcomeStatistic", urlPatterns = {"/chuandaura"})
 public class OutcomeStatistic extends HttpServlet {
 
     @Override
@@ -29,7 +29,7 @@ public class OutcomeStatistic extends HttpServlet {
         RequestDispatcher view = null;
         HttpSession session = request.getSession(false);
         if (session != null && session.getAttribute("role") == "student") {
-            session.setAttribute("title", "Bảng điểm sinh viên");
+            session.setAttribute("title", "Chuẩn đầu ra sinh viên");
             view = request.getRequestDispatcher("/student/outcomeStatistic.jsp");
             view.include(request, response);
         } else {

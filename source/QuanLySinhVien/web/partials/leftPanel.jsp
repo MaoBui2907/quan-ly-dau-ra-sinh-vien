@@ -21,7 +21,7 @@
                             <a href="/bangdiemsinhvien"><i class="menu-icon fa fa-fire"></i>Kết quả học tập</a>
                         </li>
                         <li class="menu-item-has-children dropdown">
-                            <a href="/quatrinhhoctap" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
                             <ul class="sub-menu children dropdown-menu">                            
                                 <li><i class="fa fa-puzzle-piece"></i><a href="/chuandaura">Chuẩn đầu ra</a></li>
                                 <li><i class="fa fa-bar-chart"></i><a href="/lophoc">Lớp học</a></li>
@@ -43,7 +43,7 @@
                         </li>
                         <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
                         <li class="">
-                            <a href="#"><i class="menu-icon fa fa-fire"></i>Thống kê giảng dạy</a>
+                            <a href="/quatrinhgiangday"><i class="menu-icon fa fa-fire"></i>Thống kê giảng dạy</a>
                         </li>
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình học tập</a>
@@ -68,7 +68,7 @@
                         </li>
                         <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
                         <li class="">
-                            <a href="#"><i class="menu-icon fa fa-fire"></i>Quá trình giảng dạy</a>
+                            <a href="/quatrinhgiangday"><i class="menu-icon fa fa-fire"></i>Quá trình giảng dạy</a>
                         </li>
                         <li class="menu-item-has-children dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quản lý giảng dạy</a>

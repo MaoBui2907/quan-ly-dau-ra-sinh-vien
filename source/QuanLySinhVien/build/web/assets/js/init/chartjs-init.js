@@ -53,8 +53,6 @@
                     usePointStyle: true,
                     fontFamily: 'Montserrat',
                 },
-
-
             },
             scales: {
                 xAxes: [ {

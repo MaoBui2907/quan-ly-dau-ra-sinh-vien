@@ -54,10 +54,10 @@ public class DashboardServlet extends HttpServlet {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                         Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
-                        Statement statement = con.createStatement();
+                        Statement inforStatement = con.createStatement();
                         String queryTeacher = "SELECT MAGV, TENGV, EMAIL, SDT, TENKHOA FROM GIAOVIEN,  KHOA "
                                 + " WHERE GIAOVIEN.MAKHOA=KHOA.MAKHOA AND  MAGV = '" + teacherID + "'";
-                        ResultSet info = statement.executeQuery(queryTeacher);
+                        ResultSet info = inforStatement.executeQuery(queryTeacher);
                         while (info.next()) {
                             session.setAttribute("id", info.getString("MAGV"));
                             session.setAttribute("name", info.getString("TENGV"));
@@ -66,17 +66,18 @@ public class DashboardServlet extends HttpServlet {
                             session.setAttribute("faculty", info.getString("TENKHOA"));
                         }
 
-                        String queryWidget = "SELECT MIN(NAMHOC) FROM LOPHOC WHERE MAGV = '" + teacherID + "'";
-                        ResultSet widgets = statement.executeQuery(queryWidget);
+                        Statement widStatement = con.createStatement();
+                        String queryWidget = "SELECT MIN(NAMHOC) AS NAMBD, COUNT(MALOPHOC) AS SOLOP  FROM LOPHOC WHERE MAGV = '" + teacherID + "'";
+                        ResultSet widgets = widStatement.executeQuery(queryWidget);
                         while (widgets.next()) {
-                            session.setAttribute("widget0", info.getString("MAGV"));
+                            session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
-                            session.setAttribute("widget1", info.getString("MAGV"));
-                            session.setAttribute("label1", "");
-                            session.setAttribute("widget2", info.getString("MAGV"));
+                           session.setAttribute("widget1", widgets.getString("SOLOP"));
+                           session.setAttribute("label1", "");
+                            session.setAttribute("widget2", widgets.getString("SOLOP"));
                             session.setAttribute("label2", "Lớp giảng dạy");
-                            session.setAttribute("widget3", info.getString("EMAIL"));
-                            session.setAttribute("label3", "TB Đạt chuẩn");
+                           session.setAttribute("widget3", widgets.getString("SOLOP"));
+                           session.setAttribute("label3", "TB Đạt chuẩn");
                         }
 
                         session.setAttribute("title", "Bảng điều khiển giáo viên");
@@ -84,7 +85,7 @@ public class DashboardServlet extends HttpServlet {
                     } catch (ClassNotFoundException | SQLException ex) {
                         Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
                         response.setContentType("text/plain");
-                        response.getWriter().write("Loi truy van");
+                        response.getWriter().print(ex);
                     }
 
                     break;
@@ -106,17 +107,17 @@ public class DashboardServlet extends HttpServlet {
                             session.setAttribute("faculty", info.getString("TENKHOA"));
                         }
 
-                        String queryWidget = "SELECT MIN(NAMHOC) FROM LOPHOC WHERE MAGV = '" + studentID + "'";
+                        String queryWidget = "SELECT MIN(NAMHOC) NAMBD FROM BANGDIEM WHERE MSSV='" + studentID + "'";
                         ResultSet widgets = statement.executeQuery(queryWidget);
                         while (widgets.next()) {
-                            session.setAttribute("widget0", info.getString("MAGV"));
+                            session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
-                            session.setAttribute("widget1", info.getString("MAGV"));
-                            session.setAttribute("label1", "Lớp sinh hoạt");
-                            session.setAttribute("widget2", info.getString("MAGV"));
-                            session.setAttribute("label2", "Khóa");
-                            session.setAttribute("widget3", info.getString("EMAIL"));
-                            session.setAttribute("label3", "TB tích lũy");
+//                            session.setAttribute("widget1", info.getString("MAGV"));
+//                            session.setAttribute("label1", "Lớp sinh hoạt");
+//                            session.setAttribute("widget2", info.getString("MAGV"));
+//                            session.setAttribute("label2", "Khóa");
+//                            session.setAttribute("widget3", info.getString("EMAIL"));
+//                            session.setAttribute("label3", "TB tích lũy");
                         }
 
                         session.setAttribute("title", "Bảng điều khiển sinh viên");
@@ -145,17 +146,17 @@ public class DashboardServlet extends HttpServlet {
                             session.setAttribute("faculty", info.getString("TENKHOA"));
                         }
 
-                        String queryWidget = "SELECT MIN(NAMHOC) FROM LOPHOC WHERE MAGV = '" + deanID + "'";
+                        String queryWidget = "SELECT MIN(NAMHOC) NAMBD, COUNT(MALOPHOC) SOLOP  FROM LOPHOC WHERE MAGV = '" + deanID + "'";
                         ResultSet widgets = statement.executeQuery(queryWidget);
                         while (widgets.next()) {
-                            session.setAttribute("widget0", info.getString("MAGV"));
-                            session.setAttribute("label0", "Giáo viên khoa");
-                            session.setAttribute("widget1", info.getString("MAGV"));
-                            session.setAttribute("label1", "Sinh viên khoa");
-                            session.setAttribute("widget2", info.getString("MAGV"));
+                            session.setAttribute("widget0", widgets.getString("NAMBD"));
+                            session.setAttribute("label0", "Năm bắt đầu");
+//                            session.setAttribute("widget1", info.getString("SOLOP"));
+//                            session.setAttribute("label1", "");
+                            session.setAttribute("widget2", widgets.getString("SOLOP"));
                             session.setAttribute("label2", "Lớp giảng dạy");
-                            session.setAttribute("widget3", info.getString("EMAIL"));
-                            session.setAttribute("label3", "TB Đạt chuẩn TN");
+//                            session.setAttribute("widget3", info.getString("EMAIL"));
+//                            session.setAttribute("label3", "TB Đạt chuẩn");
                         }
 
                         session.setAttribute("title", "Bảng điều khiển trưởng khoa");

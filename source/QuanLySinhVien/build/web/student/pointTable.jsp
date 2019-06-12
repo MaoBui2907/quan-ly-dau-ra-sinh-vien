@@ -131,7 +131,6 @@
             <!--Local Stuff-->
             <script>
                 $jq(".subject").click(function (e) {
-
                     $jq("#decriptionModal").modal('show');
                 })
             </script>
