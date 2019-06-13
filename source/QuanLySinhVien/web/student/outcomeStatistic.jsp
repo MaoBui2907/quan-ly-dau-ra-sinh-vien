@@ -41,19 +41,21 @@
         <div class="col-lg-12">
           <div class="card border border-primary">
             <div class="card-header">
-              <h4 class="box-title">Thống kê chuẩn đầu ra</h4>
+              <h4 class="box-title">Thống kê các chuẩn đầu ra</h4>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="card-body">
                   <div class="row">
                     <div class="col-lg-5 col-sm-12">
-                      <div class="progress-box progress-1">
-                        <h4 class="por-title">Visits</h4>
-                        <div class="por-txt">96,930 Users (40%)</div>
-                        <div class="progress mb-2" style="height: 5px;">
-                          <div class="progress-bar bg-flat-color-1" role="progressbar" style="width: 40%;"
-                            aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="row">
+                        <hr />
+                        <div id='loading' class="col-lg-9 text-center">
+                          <div class="spinner-border text-primary" role="status">
+                          </div>
+                        </div>
+                        <div id='outcomes' class="col-lg-12">
+
                         </div>
                       </div>
                     </div>
@@ -107,13 +109,29 @@
     <!--Local Stuff-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
     <script>
+      $jq(document).ready(function () {
+        $jq.ajax({
+          url: "/chuandaura",
+          method: "post",
+          data: {},
+          success: function (respone) {
+            $jq("#outcomes").html(respone)
+            $jq("#loading").hide();
+          }
+        });
+        $jq("tr.object").click(function (e) {
+          e.preventDefault();
+          $jq("#decriptionModal").modal('show');
+        })
+      })
+      var data = <%= request.getSession().getAttribute("total") %>
       var ctx = document.getElementById("outcomeChart");
       ctx.height = 200;
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
           datasets: [{
-            data: [98,2],
+            data: [data, 100 - data],
             backgroundColor: [
               "red",
               "gray"
@@ -140,7 +158,7 @@
           },
           title: {
             display: true,
-            text: "Tiến trình đạt chuẩn đầu ra hiện tại",
+            text: "Tiến trình đầu ra đã đạt được",
             position: "bottom"
           }
         },
