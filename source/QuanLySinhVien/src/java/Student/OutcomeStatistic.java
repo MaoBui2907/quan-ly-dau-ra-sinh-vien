@@ -77,7 +77,7 @@ public class OutcomeStatistic extends HttpServlet {
                 int curr = 0;
                 while (points.next()) {
                     sum += 1;
-                    if ( Integer.parseInt(points.getString("QUATRINH"))>= 50) {
+                    if ( points.getInt("QUATRINH") == 100) {
                         curr += 1;
                     }
                     String tr = "<div class='progress-box progress-1'>"
