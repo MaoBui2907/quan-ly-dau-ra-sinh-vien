@@ -13,7 +13,7 @@
             <c:choose>
                 <c:when test="${role eq 'student'}">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li class="">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin sinh viên</a>
                         </li>
                         <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
@@ -38,7 +38,7 @@
                 </c:when>
                 <c:when test="${role eq 'teacher' }">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li class="">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin giáo viên</a>
                         </li>
                         <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->
@@ -63,7 +63,7 @@
                 </c:when>
                 <c:when test="${role eq 'dean'}">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li class="">
                             <a href="/homepage"><i class="menu-icon fa fa-laptop"></i>Thông tin trưởng khoa</a>
                         </li>
                         <li class="menu-title">Bảng điều khiển</li><!-- /.menu-title -->

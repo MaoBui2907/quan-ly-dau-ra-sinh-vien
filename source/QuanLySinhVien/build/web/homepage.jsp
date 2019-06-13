@@ -176,12 +176,12 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: < %= session.getAttribute("xData") % > ,
+          labels: <%= session.getAttribute("xData") %> ,
           type: 'line',
           defaultFontFamily: 'Montserrat',
           datasets: [{
             label: '<%= session.getAttribute("yLabel0")%>',
-            data: < %= session.getAttribute("yData0") % > ,
+            data: <%= session.getAttribute("yData0") %> ,
             backgroundColor: 'transparent',
             borderColor: 'rgba(220,53,69,0.75)',
             borderWidth: 3,
@@ -191,7 +191,7 @@
             pointBackgroundColor: 'rgba(220,53,69,0.75)',
           }, {
             label: '<%= session.getAttribute("yLabel1")%>',
-            data: < %= session.getAttribute("yData1") % > ,
+            data: <%= session.getAttribute("yData1") %> ,
             backgroundColor: 'transparent',
             borderColor: 'rgba(40,167,69,0.75)',
             borderWidth: 3,
