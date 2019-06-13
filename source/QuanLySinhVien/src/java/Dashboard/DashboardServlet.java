@@ -7,12 +7,12 @@ package Dashboard;
 
 import Teacher.ClassManagementServlet;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,13 +72,25 @@ public class DashboardServlet extends HttpServlet {
                         while (widgets.next()) {
                             session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
-                           session.setAttribute("widget1", widgets.getString("SOLOP"));
-                           session.setAttribute("label1", "");
+                            session.setAttribute("widget1", widgets.getString("SOLOP"));
+                            session.setAttribute("label1", "Số lớp học");
                             session.setAttribute("widget2", widgets.getString("SOLOP"));
                             session.setAttribute("label2", "Lớp giảng dạy");
-                           session.setAttribute("widget3", widgets.getString("SOLOP"));
-                           session.setAttribute("label3", "TB Đạt chuẩn");
+                            session.setAttribute("widget3", widgets.getString("SOLOP"));
+                            session.setAttribute("label3", "TB Đạt chuẩn");
                         }
+
+                        // Chart data
+                        session.setAttribute("chartTitle", "Số sinh vien giang day theo năm");
+                        session.setAttribute("yLabel", "Sinh vien");
+                        String[] xData = {"2016", "2017", "2018"};
+                        int[] yData0 = {300, 322, 320};
+                        int[] yData1 = {300, 322, 319};
+                        session.setAttribute("yLabel0", "Sinh vien giang day");
+                        session.setAttribute("yData0", Arrays.toString(yData0));
+                        session.setAttribute("yLabel1", "Sinh vien qua mon");
+                        session.setAttribute("yData1", Arrays.toString(yData1));
+                        session.setAttribute("xData", Arrays.toString(xData));
 
                         session.setAttribute("title", "Bảng điều khiển giáo viên");
                         view = request.getRequestDispatcher("homepage.jsp");
@@ -96,30 +108,52 @@ public class DashboardServlet extends HttpServlet {
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                         Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                         Statement statement = con.createStatement();
-                        String queryTeacher = "SELECT MAGV, TENGV, EMAIL, SDT, TENKHOA FROM GIAOVIEN,  KHOA "
-                                + " WHERE GIAOVIEN.MAKHOA=KHOA.MAKHOA AND  MAGV = '" + studentID + "'";
-                        ResultSet info = statement.executeQuery(queryTeacher);
+                        String queryStudent = "SELECT MSSV, TENSV, EMAIL, SDT, SINHVIEN.MALOP, TENKHOA FROM SINHVIEN, \n"
+                                + " (SELECT MALOP,TENKHOA FROM KHOA, LOPSINHHOAT WHERE KHOA.MAKHOA = LOPSINHHOAT.MAKHOA) LOP_KHOA\n"
+                                + " WHERE SINHVIEN.MALOP = LOP_KHOA.MALOP\n"
+                                + " AND MSSV='" + studentID + "'";
+                        ResultSet info = statement.executeQuery(queryStudent);
                         while (info.next()) {
-                            session.setAttribute("id", info.getString("MAGV"));
-                            session.setAttribute("name", info.getString("TENGV"));
+                            session.setAttribute("id", info.getString("MSSV"));
+                            session.setAttribute("name", info.getString("TENSV"));
                             session.setAttribute("email", info.getString("EMAIL"));
                             session.setAttribute("phone", info.getString("SDT"));
                             session.setAttribute("faculty", info.getString("TENKHOA"));
+                            session.setAttribute("widget1", info.getString("MALOP"));
+                            session.setAttribute("label1", "Lớp sinh hoạt");
                         }
-
-                        String queryWidget = "SELECT MIN(NAMHOC) NAMBD FROM BANGDIEM WHERE MSSV='" + studentID + "'";
+                        // widget data
+                        String queryWidget = "SELECT COUNT(MALOPHOC) SOLOP, NAMBD FROM SINHVIEN_LOPHOC, \n"
+                                + " (SELECT MSSV, MIN(NAMHOC) NAMBD FROM BANGDIEM GROUP BY MSSV ) NAMHOC \n"
+                                + " WHERE SINHVIEN_LOPHOC.MSSV = NAMHOC.MSSV AND NAMHOC.MSSV = '" + studentID + "'\n"
+                                + " GROUP BY NAMHOC.MSSV, NAMBD";
                         ResultSet widgets = statement.executeQuery(queryWidget);
                         while (widgets.next()) {
                             session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
-//                            session.setAttribute("widget1", info.getString("MAGV"));
-//                            session.setAttribute("label1", "Lớp sinh hoạt");
-//                            session.setAttribute("widget2", info.getString("MAGV"));
-//                            session.setAttribute("label2", "Khóa");
-//                            session.setAttribute("widget3", info.getString("EMAIL"));
-//                            session.setAttribute("label3", "TB tích lũy");
+                            session.setAttribute("widget2", widgets.getString("SOLOP"));
+                            session.setAttribute("label2", "Số lớp học");
                         }
-
+                        queryWidget = "SELECT AVG(DIEMTB) TB \n"
+                                + " FROM BANGDIEM \n"
+                                + " WHERE MSSV = '" + studentID + "'";
+                        widgets = statement.executeQuery(queryWidget);
+                        while (widgets.next()) {
+                            session.setAttribute("widget3", widgets.getString("TB"));
+                            session.setAttribute("label3", "TB tích lũy");
+                        }
+                        // Chart data
+                        session.setAttribute("chartTitle", "Số lớp học theo năm");
+                        session.setAttribute("yLabel", "Lớp");
+                        String[] xData = {"2016", "2017", "2018"};
+                        int[] yData0 = {12, 12, 15};
+                        int[] yData1 = {10, 11, 15};
+                        session.setAttribute("yLabel0", "Số lớp đăng ký");
+                        session.setAttribute("yData0", Arrays.toString(yData0));
+                        session.setAttribute("yLabel1", "Số lớp đạt");
+                        session.setAttribute("yData1", Arrays.toString(yData1));
+                        session.setAttribute("xData", Arrays.toString(xData));
+                        // title
                         session.setAttribute("title", "Bảng điều khiển sinh viên");
                         view = request.getRequestDispatcher("homepage.jsp");
                     } catch (ClassNotFoundException | SQLException ex) {
@@ -158,6 +192,18 @@ public class DashboardServlet extends HttpServlet {
 //                            session.setAttribute("widget3", info.getString("EMAIL"));
 //                            session.setAttribute("label3", "TB Đạt chuẩn");
                         }
+
+                        // Chart data
+                        session.setAttribute("chartTitle", "Số sinh vien theo năm");
+                        session.setAttribute("yLabel", "Sinh vien");
+                        String[] xData = {"2016", "2017", "2018"};
+                        int[] yData0 = {420, 480, 490};
+                        int[] yData1 = {360, 380, 420};
+                        session.setAttribute("yLabel0", "Sinh vien nhap hoc");
+                        session.setAttribute("yData0", Arrays.toString(yData0));
+                        session.setAttribute("yLabel1", "Sinh vien tot nghiep");
+                        session.setAttribute("yData1", Arrays.toString(yData1));
+                        session.setAttribute("xData", Arrays.toString(xData));
 
                         session.setAttribute("title", "Bảng điều khiển trưởng khoa");
                         view = request.getRequestDispatcher("homepage.jsp");
