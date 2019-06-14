@@ -55,27 +55,28 @@ public class ClassManagementServlet extends HttpServlet {
                 String queryYear = "Select distinct NamHoc from LOPHOC where MAGV='" + teacherID + "'";
                 ResultSet years = statement.executeQuery(queryYear);
                 while (years.next()) {
-                    String year = years.getString(1);
-                    String queryTerm = "Select distinct HocKy from LOPHOC where MAGV='" + teacherID
-                            + "' and NAMHOC='" + year + "'";
+                    String year = years.getString("NAMHOC");
+                    String queryTerm = "Select distinct HOCKY from LOPHOC where MAGV='" + teacherID
+                            + "' and NAMHOC=" + year;
                     ResultSet terms = statement.executeQuery(queryTerm);
                     while (terms.next()) {
-                        String term = terms.getString(1);
+                        String term = terms.getString("HOCKY");
                         String queryClass = "Select distinct MALOPHOC from LOPHOC where MAGV='" + teacherID
-                                + "' and NAMHOC='" + year + "' and HOCKY='" + term + "'";
+                                + "' and NAMHOC=" + year + " and HOCKY=" + term;
                         ResultSet classes = statement.executeQuery(queryClass);
                         while (classes.next()) {
-                            String className = classes.getString(1);
+                            String className = classes.getString("MALOPHOC");
                             classList.add(className + ".HK" + term + "." + year);
                         }
                     }
                 }
+                session.setAttribute("title", "Quản lý lớp học");
+                session.setAttribute("classes", classList);
+                view = request.getRequestDispatcher("/teacher/classManagement.jsp");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            session.setAttribute("title", "Quản lý lớp học");
-            session.setAttribute("classes", classList);
-            view = request.getRequestDispatcher("/teacher/classManagement.jsp");
+
             view.include(request, response);
         } else {
             response.sendRedirect("/login");
@@ -105,16 +106,16 @@ public class ClassManagementServlet extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryStudent ="Select SINHVIEN.MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSV=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='" +
-                        className + "' and BANGDIEM.HOCKY=" + (String) term +" and BANGDIEM.NAMHOC=" + (String) year;
+                String queryStudent = "Select SINHVIEN.MSSV, TENSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK, DIEMTB from SINHVIEN, BANGDIEM where SINHVIEN.MSSV=BANGDIEM.MSSV and BANGDIEM.MALOPHOC='"
+                        + className + "' and BANGDIEM.HOCKY=" + (String) term + " and BANGDIEM.NAMHOC=" + (String) year;
                 ResultSet students = statement.executeQuery(queryStudent);
                 boolean isEnded = false;
                 String resString = "";
                 while (students.next()) {
-                    String tr = "<tr><td>" + students.getString("MSSV") +  "</td><td>" + 
-                            students.getString("TENSV") +"</td><td>"+ students.getString("DIEMQT") +"</td><td>" + 
-                            students.getString("DIEMTH") + "</td><td>" + students.getString("DIEMGK") +"</td><td>" + 
-                            students.getString("DIEMCK") + "</td><td>" + students.getString("DIEMTB") +"</td></tr>";
+                    String tr = "<tr><td>" + students.getString("MSSV") + "</td><td>"
+                            + students.getString("TENSV") + "</td><td>" + students.getString("DIEMQT") + "</td><td>"
+                            + students.getString("DIEMTH") + "</td><td>" + students.getString("DIEMGK") + "</td><td>"
+                            + students.getString("DIEMCK") + "</td><td>" + students.getString("DIEMTB") + "</td></tr>";
                     resString += tr;
                 }
                 response.getWriter().write(resString);

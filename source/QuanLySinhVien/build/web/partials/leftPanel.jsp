@@ -24,7 +24,6 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="menu-icon fa fa-cogs"></i>Quá trình rèn luyện</a>
                             <ul class="sub-menu children dropdown-menu">                            
                                 <li><i class="fa fa-puzzle-piece"></i><a href="/chuandaura">Chuẩn đầu ra</a></li>
-                                <li><i class="fa fa-bar-chart"></i><a href="/lophoc">Lớp học</a></li>
                             </ul>
                         </li>
                         <li class="menu-title">Quản lý tài khoản</li><!-- /.menu-title -->

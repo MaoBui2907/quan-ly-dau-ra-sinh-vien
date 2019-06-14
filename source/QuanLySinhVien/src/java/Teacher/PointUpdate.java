@@ -5,19 +5,12 @@
  */
 package Teacher;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,12 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.apache.tomcat.util.http.fileupload.FileItem;
-import org.apache.tomcat.util.http.fileupload.FileItemFactory;
-import org.apache.tomcat.util.http.fileupload.RequestContext;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-import org.apache.tomcat.util.http.fileupload.util.Streams;
 
 /**
  *
@@ -40,15 +27,6 @@ import org.apache.tomcat.util.http.fileupload.util.Streams;
  */
 @WebServlet(name = "PointUpdate", urlPatterns = {"/capnhatdiem"})
 public class PointUpdate extends HttpServlet {
-
-    String COMMA_DELIMITER = ",";
-    String NEW_LINE_SEPARATOR = "\n";
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -63,17 +41,49 @@ public class PointUpdate extends HttpServlet {
         HttpSession session = request.getSession(false);
         if (session != null && (session.getAttribute("role") == "teacher" || session.getAttribute("role") == "dean")) {
             try {
-                String[] update = request.getParameterValues("update");
+                String[] update = request.getParameterValues("update[]");
+                String classReq = request.getParameter("class");
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                for (String item : update){
-                    int out = statement.executeUpdate(item);
+                for (String item : update) {
+                    statement.executeUpdate(item);
                 }
+                String className = classReq.substring(0, 9);
+                String term = classReq.substring(14, 15);
+                String year = classReq.substring(16, 20);
+                // update G
+                String pointQuery = "SELECT MSSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK\n"
+                        + "FROM BANGDIEM\n"
+                        + "WHERE MALOPHOC = '" + className + "'  AND HOCKY = " + term + " AND NAMHOC=" + year;
+                ResultSet points = statement.executeQuery(pointQuery);
+                while (points.next()) {
+                    pointQuery = "SELECT MACHUANMH, TRONGSOQT, TRONGSOTH, TRONGSOCK, TRONGSOGK\n"
+                            + "FROM CHUANMH, LOPHOC\n"
+                            + "WHERE CHUANMH.MAMH = LOPHOC.MAMH AND LOPHOC.MALOPHOC = '" + className + "'";
+                    ResultSet weighs = statement.executeQuery(pointQuery);
+                    while (weighs.next()) {
+                        float quatrinh = points.getFloat("DIEMQT") * weighs.getFloat("TRONGSOQT") 
+                                + points.getFloat("DIEMTH") * weighs.getFloat("TRONGSOTH") + points.getFloat("DIEMGK") * weighs.getFloat("TRONGSOGK")
+                                + points.getFloat("DIEMCK") * weighs.getFloat("TRONGSOCK");
+                        String gUpdate = "UPDATE SV_CHUANMH\n"
+                                + "SET QUATRINH = " + quatrinh * 100 + "\n"
+                                + "WHERE MSSV = '" + points.getString("MSSV") + "' AND MALOPHOC = '" + className 
+                                + "' AND MACHUANMH = '" + weighs.getString("MACHUANMH") + "' AND HOCKY = "  + term + " AND NAMHOC=" + year;
+                        statement.executeUpdate(gUpdate);
+                    }
+                }
+                // UPDATE LO
+                
+                
+                response.getWriter().write("done");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+
+        // update LO
+        
         } else {
             response.sendRedirect("/login");
         }

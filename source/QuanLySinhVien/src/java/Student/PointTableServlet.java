@@ -66,10 +66,11 @@ public class PointTableServlet extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryPoint = "SELECT MONHOC.MAMH, TENMH, DIEMQT, DIEMCK, DIEMGK, DIEMTH, DIEMTB, HOCKY, NAMHOC FROM MONHOC, \n"
-                        + "(SELECT MSSV, MAMH, DIEMQT, DIEMGK, DIEMCK, DIEMTH, DIEMTB, BANGDIEM.HOCKY, BANGDIEM.NAMHOC FROM BANGDIEM, LOPHOC \n"
+                String queryPoint = "SELECT DISTINCT MONHOC.MAMH, TENMH, DIEMQT, DIEMCK, DIEMGK, DIEMTH, DIEMTB, HOCKY, NAMHOC FROM MONHOC, \n"
+                        + "(SELECT MSSV, MAMH, DIEMQT, DIEMGK, DIEMCK, DIEMTH, DIEMTB, BANGDIEM.HOCKY, BANGDIEM.NAMHOC \n"
+                        + "FROM BANGDIEM, LOPHOC \n"
                         + "WHERE BANGDIEM.MALOPHOC = LOPHOC.MALOPHOC) DIEM\n"
-                        + "WHERE MSSV = '" + session.getAttribute("studentID") + "'\n"
+                        + "WHERE MSSV = '" + session.getAttribute("studentID") + "' AND DIEM.MAMH = MONHOC.MAMH\n"
                         + "ORDER BY NAMHOC, HOCKY";
                 ResultSet points = statement.executeQuery(queryPoint);
                 boolean isEnded = false;
@@ -77,8 +78,8 @@ public class PointTableServlet extends HttpServlet {
                 while (points.next()) {
                     String tr = "<tr class='object'><td>HK" + points.getString("HOCKy") + "." + points.getString("NAMHOC") + "</td><td>"
                             + points.getString("MAMH") + "</td><td>" + points.getString("TENMH") + "</td><td>"
-                            + points.getString("DIEMQT") + "</td><td>" + points.getString("DIEMGK") + "</td><td>" 
-                            + points.getString("DIEMTH") + "</td><td>" + points.getString("DIEMCK") + "</td><td>" 
+                            + points.getString("DIEMQT") + "</td><td>" + points.getString("DIEMGK") + "</td><td>"
+                            + points.getString("DIEMTH") + "</td><td>" + points.getString("DIEMCK") + "</td><td>"
                             + points.getString("DIEMTB") + "</td></a></tr>";
                     resString += tr;
                 }

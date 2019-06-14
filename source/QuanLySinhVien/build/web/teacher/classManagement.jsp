@@ -109,8 +109,8 @@
                                                         <th>MSSV</th>
                                                         <th>Họ tên</th>
                                                         <th>Điểm quá trình</th>
-                                                        <th>Điểm giữa kỳ</th>
                                                         <th>Điểm thực hành</th>
+                                                        <th>Điểm giữa kỳ</th>
                                                         <th>Điểm cuối kỳ</th>
                                                         <th>Điểm TB</th>
                                                     </tr>
@@ -127,20 +127,21 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="row">
-                                            <div class="col-md-6 col-sm-12">
+                                            <div class="col-md-5 col-sm-12">
                                                 <form>
-                                                    <input id="filecsv" type="file" />
+                                                    <input id="filecsv" class="form-control" type="file" hidden />
                                                     <button id="pointUpdate" class="btn btn-outline-info float-right"
                                                         style="margin-top:30px">
-                                                        <span class="spinner-border spinner-border-sm" role="status"
-                                                            aria-hidden="true" style="display: none"></span>
+                                                        <span id="uploading" class="spinner-border spinner-border-sm"
+                                                            role="status" aria-hidden="true"
+                                                            style="display: none"></span>
                                                         Cập nhật điểm thi
                                                     </button>
                                                 </form>
                                             </div>
-                                            <div class="col-md-6 col-sm-12">
-                                                <button id="exportList" onclick="fnExcelReport();"
-                                                    class="btn btn-outline-primary" style="margin-top:30px">Xuất
+                                            <div class="col-md-7 col-sm-12">
+                                                <button id="exportList" class="btn btn-outline-primary"
+                                                    style="margin-top:30px">Xuất
                                                     danh sách sinh viên</button>
                                             </div>
                                         </div>
@@ -169,75 +170,57 @@
 
     <!--Local Stuff-->
     <script>
-        function fnExcelReport() {
-            var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
-            var textRange;
-            var j = 0;
-            tab = document.getElementById('students'); // id of table
-
-            for (j = 0; j < tab.rows.length; j++) {
-                tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-                //tab_text=tab_text+"</tr>";
-            }
-
-            tab_text = tab_text + "</table>";
-            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
-            tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-            tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf("MSIE ");
-
-            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
-            {
-                txtArea1.document.open("txt/html", "replace");
-                txtArea1.document.write(tab_text);
-                txtArea1.document.close();
-                txtArea1.focus();
-                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
-            } else //other browser not tested on IE 11
-                sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-
-            return (sa);
-        }
+        $jq("#exportList").click(function (e) {
+            $jq('#students').table2csv({
+                header_body_space: 0
+            });
+        })
 
         function processData(allText) {
             var allTextLines = allText.split(/\r\n|\n/);
             var headers = allTextLines[0].split(',');
             var lines = [];
             for (var i = 1; i < allTextLines.length; i++) {
-                lines.push("UPDATE BANGDIEM SET DIEMGQT=" + allTextLines[i][2] +
-                    ", DIEMTH=" + allTextLines[i][3] + ", DIEMGK=" + allTextLines[i][4] +
-                    ", DIEMCK=" + allTextLines[i][5] + " WHERE MSSV='" + allTextLines[i][0] +
+                textList = allTextLines[i].split(',');
+                lines.push("UPDATE BANGDIEM SET DIEMQT=" + textList[2] +
+                    ", DIEMTH=" + textList[3] + ", DIEMGK=" + textList[4] +
+                    ", DIEMCK=" + textList[5] + ", DIEMTB=" + textList[6] + " WHERE MSSV='" + textList[0] +
                     "' AND MALOPHOC='" + $jq("#class").val().substring(0, 9) + "' AND HOCKY=" + $jq("#class").val()
                     .substring(14, 15) +
                     " AND NAMHOC=" + $jq("#class").val().substring(16, 20))
             }
-            console.log(lines);
+            return lines;
         }
         $jq("#pointUpdate").click(function (e) {
             e.preventDefault();
-            var data
+            $jq('#filecsv').click();
+
+        })
+        $jq('#filecsv').change(function () {
+            var data = []
             var file = $jq('#filecsv').prop('files')[0];
             const reader = new FileReader()
-            reader.onload = function(event) {
-                data = processData(event.target.result)
-            } 
-            reader.readAsText(file)
-            $jq.ajax({
-                url: "/capnhatdiem",
-                method: "post",
-                data: {
-                    "update": JSON.stringify(data)
-                },
-                beforeSend: function () {
-                    $jq("#uploading").show()
+            reader.onloadend = function (event) {
+                data = processData(event.target.result);
+                $jq.ajax({
+                    url: "/capnhatdiem",
+                    method: "post",
+                    dataType: "json",
+                    data: {
+                        update: data,
+                        class: $jq("#class").val()
+                    },
+                    beforeSend: function () {
+                        $jq("#uploading").show()
+                    },
+                    complete: function (respone) {
+                        $jq("#uploading").hide()
+                        $jq(".manage").click()
+                    }
+                })
 
-                },
-                success: function (respone) {
-                    $jq("#uploading").hide()
-                }
-            })
+            }
+            reader.readAsText(file)
         })
         $jq('.manage').click(function (e) {
             e.preventDefault();
