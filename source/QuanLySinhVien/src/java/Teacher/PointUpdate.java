@@ -46,9 +46,9 @@ public class PointUpdate extends HttpServlet {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
-                Statement statement = con.createStatement();
                 for (String item : update) {
-                    statement.executeUpdate(item);
+                    Statement updateStatement = con.createStatement();
+                    updateStatement.executeUpdate(item);
                 }
                 String className = classReq.substring(0, 9);
                 String term = classReq.substring(14, 15);
@@ -57,33 +57,34 @@ public class PointUpdate extends HttpServlet {
                 String pointQuery = "SELECT MSSV, DIEMQT, DIEMTH, DIEMGK, DIEMCK\n"
                         + "FROM BANGDIEM\n"
                         + "WHERE MALOPHOC = '" + className + "'  AND HOCKY = " + term + " AND NAMHOC=" + year;
-                ResultSet points = statement.executeQuery(pointQuery);
+                Statement pointStatement = con.createStatement();
+                ResultSet points = pointStatement.executeQuery(pointQuery);
                 while (points.next()) {
+                    Statement weightStatement = con.createStatement();
                     pointQuery = "SELECT MACHUANMH, TRONGSOQT, TRONGSOTH, TRONGSOCK, TRONGSOGK\n"
                             + "FROM CHUANMH, LOPHOC\n"
                             + "WHERE CHUANMH.MAMH = LOPHOC.MAMH AND LOPHOC.MALOPHOC = '" + className + "'";
-                    ResultSet weighs = statement.executeQuery(pointQuery);
+                    ResultSet weighs = weightStatement.executeQuery(pointQuery);
                     while (weighs.next()) {
-                        float quatrinh = points.getFloat("DIEMQT") * weighs.getFloat("TRONGSOQT") 
+                        float quatrinh = points.getFloat("DIEMQT") * weighs.getFloat("TRONGSOQT")
                                 + points.getFloat("DIEMTH") * weighs.getFloat("TRONGSOTH") + points.getFloat("DIEMGK") * weighs.getFloat("TRONGSOGK")
                                 + points.getFloat("DIEMCK") * weighs.getFloat("TRONGSOCK");
+                        Statement gStatement = con.createStatement();
                         String gUpdate = "UPDATE SV_CHUANMH\n"
                                 + "SET QUATRINH = " + quatrinh * 100 + "\n"
-                                + "WHERE MSSV = '" + points.getString("MSSV") + "' AND MALOPHOC = '" + className 
-                                + "' AND MACHUANMH = '" + weighs.getString("MACHUANMH") + "' AND HOCKY = "  + term + " AND NAMHOC=" + year;
-                        statement.executeUpdate(gUpdate);
+                                + "WHERE MSSV = '" + points.getString("MSSV") + "' AND MALOPHOC = '" + className
+                                + "' AND MACHUANMH = '" + weighs.getString("MACHUANMH") + "' AND HOCKY = " + term + " AND NAMHOC=" + year;
+                        gStatement.executeUpdate(gUpdate);
                     }
                 }
                 // UPDATE LO
-                
-                
+
                 response.getWriter().write("done");
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        // update LO
-        
+            // update LO
         } else {
             response.sendRedirect("/login");
         }

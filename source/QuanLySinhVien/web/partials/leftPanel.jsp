@@ -31,7 +31,7 @@
                             <a href="/changePassword"><i class="menu-icon fa fa-magic"></i>Đổi mật khẩu</a>
                         </li>
                         <li class="">
-                            <a class="logout" href=""><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
+                            <a class="logout" href="/login"><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
                         </li>
                     </ul>
                 </c:when>
@@ -55,7 +55,7 @@
                             <a href="/changePassword"><i class="menu-icon fa fa-magic"></i>Đổi mật khẩu</a>
                         </li>
                         <li class="">
-                            <a class="logout" href=""><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
+                            <a class="logout" href="/login"><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
                         </li>
                     </ul>
                 </c:when>
@@ -86,7 +86,7 @@
                             <a href="/changePassword"><i class="menu-icon fa fa-magic"></i>Đổi mật khẩu</a>
                         </li>
                         <li class="">
-                            <a class="logout" href=""><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
+                            <a class="logout" href="/login"><i class="menu-icon fa fa-sign-out"></i>Đăng xuất</a>
                         </li>
                     </ul>
                 </c:when>

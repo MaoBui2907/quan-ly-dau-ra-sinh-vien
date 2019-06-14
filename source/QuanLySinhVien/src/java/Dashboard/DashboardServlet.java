@@ -45,7 +45,7 @@ public class DashboardServlet extends HttpServlet {
 
         RequestDispatcher view = null;
         HttpSession session = request.getSession(false);
-        if (session.getAttribute("role") != null) {
+        if (session != null && session.getAttribute("role") != null) {
             String role = (String) session.getAttribute("role");
             switch (role) {
             case "teacher":

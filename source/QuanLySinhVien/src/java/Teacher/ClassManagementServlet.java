@@ -50,20 +50,20 @@ public class ClassManagementServlet extends HttpServlet {
                 Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
-                Statement statement = con.createStatement();
+                Statement yearStatement = con.createStatement();
                 String teacherID = (String) session.getAttribute("teacherID");
-                String queryYear = "Select distinct NamHoc from LOPHOC where MAGV='" + teacherID + "'";
-                ResultSet years = statement.executeQuery(queryYear);
+                String queryYear = "SELECT DISTINCT NAMHOC FROM LOPHOC WHERE MAGV='" + teacherID + "'";
+                ResultSet years = yearStatement.executeQuery(queryYear);
                 while (years.next()) {
                     String year = years.getString("NAMHOC");
-                    String queryTerm = "Select distinct HOCKY from LOPHOC where MAGV='" + teacherID
-                            + "' and NAMHOC=" + year;
-                    ResultSet terms = statement.executeQuery(queryTerm);
+                    Statement termStatement = con.createStatement();
+                    String queryTerm = "SELECT DISTINCT HOCKY FROM LOPHOC WHERE MAGV='" + teacherID + "' AND NAMHOC = " + year;
+                    ResultSet terms = termStatement.executeQuery(queryTerm);
                     while (terms.next()) {
                         String term = terms.getString("HOCKY");
-                        String queryClass = "Select distinct MALOPHOC from LOPHOC where MAGV='" + teacherID
-                                + "' and NAMHOC=" + year + " and HOCKY=" + term;
-                        ResultSet classes = statement.executeQuery(queryClass);
+                        Statement classStatement = con.createStatement();
+                        String queryClass = "SELECT DISTINCT MALOPHOC FROM LOPHOC WHERE MAGV='" + teacherID + "' AND NAMHOC = " + year + " AND HOCKY =" + term;
+                        ResultSet classes = classStatement.executeQuery(queryClass);
                         while (classes.next()) {
                             String className = classes.getString("MALOPHOC");
                             classList.add(className + ".HK" + term + "." + year);
@@ -76,7 +76,6 @@ public class ClassManagementServlet extends HttpServlet {
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             view.include(request, response);
         } else {
             response.sendRedirect("/login");

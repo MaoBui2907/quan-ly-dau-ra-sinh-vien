@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/LoginServlet.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/partials/leftPanel.jsp</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/WEB-INF/web.xml</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/partials/header.jsp</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dashboard/DashboardServlet.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Teacher/PointUpdate.java</file>
-            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Student/PointTableServlet.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/partials/head.jsp</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Teacher/ClassManagementServlet.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Authenticate/LogoutServlet.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/web/homepage.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -75,8 +75,8 @@
                         <form>
                           <div class="row justify-content-center">
                             <div class="col-md-3 align-self-center">
-                              <button id="exportList" onclick="fnExcelReport();" class="btn btn-outline-primary"
-                                style="margin-top:30px">Xuất bảng điểm</button>
+                              <button id="exportList" class="btn btn-outline-primary" style="margin-top:30px">Xuất bảng
+                                điểm</button>
                             </div>
                           </div>
                         </form>
@@ -92,11 +92,11 @@
       </div>
       <!-- .animated -->
       <!-- /.content -->
-      <div class="clearfix"></div>
-      <!-- Footer -->
-      <jsp:include page="../partials/footer.jsp" />
-      <!-- /.site-footer -->
     </div>
+    <div class="clearfix"></div>
+    <!-- Footer -->
+    <jsp:include page="../partials/footer.jsp" />
+    <!-- /.site-footer -->
   </div>
   <!-- /#right-panel -->
 
@@ -128,36 +128,11 @@
 
   <!--Local Stuff-->
   <script>
-    function fnExcelReport() {
-      var tab_text = "<table border='2px'><tr bgcolor='#87AFC6'>";
-      var textRange;
-      var j = 0;
-      tab = document.getElementById('points'); // id of table
-
-      for (j = 0; j < tab.rows.length; j++) {
-        tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
-        //tab_text=tab_text+"</tr>";
-      }
-
-      tab_text = tab_text + "</table>";
-      tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
-      tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
-      tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
-
-      var ua = window.navigator.userAgent;
-      var msie = ua.indexOf("MSIE ");
-
-      if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) // If Internet Explorer
-      {
-        txtArea1.document.open("txt/html", "replace");
-        txtArea1.document.write(tab_text);
-        txtArea1.document.close();
-        txtArea1.focus();
-        sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
-      } else //other browser not tested on IE 11
-        sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
-      return (sa);
-    }
+    $jq("#exportList").click(function (e) {
+      $jq('#points').table2csv({
+        header_body_space: 0
+      });
+    })
     $jq(document).ready(function () {
       $jq.ajax({
         url: "/bangdiemsinhvien",
