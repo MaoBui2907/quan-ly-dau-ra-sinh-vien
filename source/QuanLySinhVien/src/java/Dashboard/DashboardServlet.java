@@ -42,14 +42,14 @@ public class DashboardServlet extends HttpServlet {
         String dbName = dbProps.getProperty("dbName");
         String dbUser = dbProps.getProperty("dbUser");
         String dbPassword = dbProps.getProperty("dbPassword");
-        
+
         RequestDispatcher view = null;
         HttpSession session = request.getSession(false);
-        if (session != null) {
+        if (session.getAttribute("role") != null) {
             String role = (String) session.getAttribute("role");
             switch (role) {
                 case "teacher":
-                    String teacherID = session.getAttribute("teacherID");
+                    String teacherID = (String) session.getAttribute("teacherID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
@@ -102,14 +102,16 @@ public class DashboardServlet extends HttpServlet {
 
                         session.setAttribute("title", "Bảng điều khiển giáo viên");
                         view = request.getRequestDispatcher("homepage.jsp");
-                    } catch (ClassNotFoundException | SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
                         response.setContentType("text/plain");
                         response.getWriter().print(ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(DashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
                 case "student":
-                    String studentID = session.getAttribute("studentID");
+                    String studentID = (String) session.getAttribute("studentID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
@@ -157,14 +159,16 @@ public class DashboardServlet extends HttpServlet {
                         // title
                         session.setAttribute("title", "Bảng điều khiển sinh viên");
                         view = request.getRequestDispatcher("homepage.jsp");
-                    } catch (ClassNotFoundException | SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
                         response.setContentType("text/plain");
                         response.getWriter().write("Loi truy van");
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(DashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
                 case "dean":
-                    String deanID = session.getAttribute("teacherID");
+                    String deanID = (String) session.getAttribute("teacherID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
@@ -208,10 +212,12 @@ public class DashboardServlet extends HttpServlet {
 
                         session.setAttribute("title", "Bảng điều khiển trưởng khoa");
                         view = request.getRequestDispatcher("homepage.jsp");
-                    } catch (ClassNotFoundException | SQLException ex) {
+                    } catch (SQLException ex) {
                         Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
                         response.setContentType("text/plain");
                         response.getWriter().write("Loi truy van");
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(DashboardServlet.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     break;
             }
