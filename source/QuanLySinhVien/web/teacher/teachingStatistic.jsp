@@ -108,11 +108,11 @@
         <!-- .animated -->
       </div>
       <!-- /.content -->
+    </div>
       <div class="clearfix"></div>
       <!-- Footer -->
       <jsp:include page="../partials/footer.jsp" />
       <!-- /.site-footer -->
-    </div>
     <!-- /#right-panel -->
 
     <!-- Scripts -->

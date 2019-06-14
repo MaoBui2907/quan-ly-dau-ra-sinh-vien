@@ -52,16 +52,16 @@ public class ClassManagementServlet extends HttpServlet {
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
                 String teacherID = (String) session.getAttribute("teacherID");
-                String queryYear = "Select distinct NamHoc from GiangDay where MAGV='" + teacherID + "'";
+                String queryYear = "Select distinct NamHoc from LOPHOC where MAGV='" + teacherID + "'";
                 ResultSet years = statement.executeQuery(queryYear);
                 while (years.next()) {
                     String year = years.getString(1);
-                    String queryTerm = "Select distinct HocKy from GiangDay where MAGV='" + teacherID
+                    String queryTerm = "Select distinct HocKy from LOPHOC where MAGV='" + teacherID
                             + "' and NAMHOC='" + year + "'";
                     ResultSet terms = statement.executeQuery(queryTerm);
                     while (terms.next()) {
                         String term = terms.getString(1);
-                        String queryClass = "Select distinct MALOPHOC from GiangDay where MAGV='" + teacherID
+                        String queryClass = "Select distinct MALOPHOC from LOPHOC where MAGV='" + teacherID
                                 + "' and NAMHOC='" + year + "' and HOCKY='" + term + "'";
                         ResultSet classes = statement.executeQuery(queryClass);
                         while (classes.next()) {

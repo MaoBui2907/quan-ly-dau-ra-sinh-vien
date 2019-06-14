@@ -69,7 +69,7 @@ public class TeachingStatistic extends HttpServlet {
                 session.setAttribute("subjectNames", Arrays.toString(subjectnameList.toArray()));
 
 //                teaching chart
-                queryChart = "SELECT COUNT(MALOPHOC) SOLOP, NAMHOC FROM GIANGDAY WHERE MAGV='" + session.getAttribute("teacherID") + "'\n"
+                queryChart = "SELECT COUNT(MALOPHOC) SOLOP, NAMHOC FROM LOPHOC WHERE MAGV='" + session.getAttribute("teacherID") + "'\n"
                         + "GROUP BY NAMHOC";
                 charts = inforStatement.executeQuery(queryChart);
                 ArrayList<Integer> totalCount = new ArrayList<Integer>();
@@ -78,9 +78,11 @@ public class TeachingStatistic extends HttpServlet {
                 while (charts.next()) {
                     yearList.add("\"" + charts.getString("NAMHOC") + "\"");
                     Statement positiveState = con.createStatement();
-                    String posQuery = "SELECT COUNT(MALOPHOC) LOP, NAMHOC FROM GIANGDAY WHERE MAGV='"
-                            + session.getAttribute("teacherID") + "' AND NAMHOC = " + charts.getString("NAMHOC") + " AND QUATRINH >= 80\n"
-                            + "GROUP BY NAMHOC";
+                    String posQuery = "SELECT COUNT(MALOPHOC) LOP\n"
+                            + "FROM (SELECT AVG(QUATRINH) QUATRINH, LOPHOC.NAMHOC, LOPHOC.HOCKY, LOPHOC.MALOPHOC, LOPHOC.MAGV FROM LOPHOC, SV_CHUANMH \n"
+                            + "WHERE LOPHOC.MALOPHOC = SV_CHUANMH.MALOPHOC \n"
+                            + "GROUP BY LOPHOC.NAMHOC, LOPHOC.MALOPHOC, LOPHOC.HOCKY, LOPHOC.MAGV) GIANGDAY\n"
+                            + "WHERE MAGV = '" + session.getAttribute("teacherID") + "' AND QUATRINH >= 80";
                     ResultSet posi = positiveState.executeQuery(posQuery);
                     if (posi.next()) {
                         positiveCount.add(posi.getInt("LOP"));
@@ -95,18 +97,26 @@ public class TeachingStatistic extends HttpServlet {
 
 //                personal statistic
                 session.setAttribute("total", total);
-                queryChart = "SELECT TOP 1 QUATRINH, MALOPHOC, HOCKY, NAMHOC FROM GIANGDAY WHERE MAGV = '" + session.getAttribute("teacherID") + "'\n"
+                queryChart = "SELECT TOP 1 QUATRINH, MALOPHOC, HOCKY, NAMHOC\n"
+                        + "FROM (SELECT AVG(QUATRINH) QUATRINH, LOPHOC.NAMHOC, LOPHOC.HOCKY, LOPHOC.MALOPHOC, LOPHOC.MAGV FROM LOPHOC, SV_CHUANMH \n"
+                        + "WHERE LOPHOC.MALOPHOC = SV_CHUANMH.MALOPHOC \n"
+                        + "GROUP BY LOPHOC.NAMHOC, LOPHOC.MALOPHOC, LOPHOC.HOCKY, LOPHOC.MAGV) GIANGDAY\n"
+                        + "WHERE MAGV = '" + session.getAttribute("teacherID") + "'\n"
                         + "ORDER BY QUATRINH DESC";
                 charts = inforStatement.executeQuery(queryChart);
                 while (charts.next()) {
                     session.setAttribute("maxProgress", charts.getString("QUATRINH") + "%");
                     session.setAttribute("maxClass", charts.getString("MALOPHOC") + ".HK" + charts.getString("HOCKY") + "." + charts.getString("NAMHOC"));
                 }
-                queryChart = "SELECT MIN(NAMHOC) START, AVG(QUATRINH) AVG FROM GIANGDAY WHERE MAGV = '" + session.getAttribute("teacherID") + "'";
+                queryChart = "SELECT MIN(NAMHOC) START, AVG(QUATRINH) AVG\n"
+                        + "FROM (SELECT AVG(QUATRINH) QUATRINH, LOPHOC.NAMHOC, LOPHOC.HOCKY, LOPHOC.MALOPHOC, LOPHOC.MAGV FROM LOPHOC, SV_CHUANMH \n"
+                        + "WHERE LOPHOC.MALOPHOC = SV_CHUANMH.MALOPHOC \n"
+                        + "GROUP BY LOPHOC.NAMHOC, LOPHOC.MALOPHOC, LOPHOC.HOCKY, LOPHOC.MAGV) GIANGDAY\n"
+                        + "WHERE MAGV = '" + session.getAttribute("teacherID") + "'";
                 charts = inforStatement.executeQuery(queryChart);
                 while (charts.next()) {
                     session.setAttribute("start", charts.getString("START"));
-                    session.setAttribute("avgProgress", charts.getString("AVG"));
+                    session.setAttribute("avgProgress", charts.getString("AVG") + "%");
                 }
 
                 session.setAttribute("title", "Thống kê giảng dạy");

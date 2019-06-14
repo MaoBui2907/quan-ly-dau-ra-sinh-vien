@@ -72,12 +72,12 @@ public class LoginServlet extends HttpServlet {
                 if (teacher.next()) {
                     HttpSession session = request.getSession();
                     session.setAttribute("teacherID", teacher.getString("MAGV"));
-                    String deanQuery = "select * from QUANLY where MATK='" + teacher.getString("MAGV") + "'";
+                    String deanQuery = "select * from KHOA where MATK='" + teacher.getString("MAGV") + "'";
                     ResultSet dean = statement.executeQuery(deanQuery);
                     if (dean.next()) {
-                        session.setAttribute("role", "teacher");
-                    } else {
                         session.setAttribute("role", "dean");
+                    } else {
+                        session.setAttribute("role", "teacher");
                     }
                     response.sendRedirect("/homepage");
                 } else {

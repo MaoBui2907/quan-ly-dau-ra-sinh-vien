@@ -50,12 +50,8 @@
                     <div class="col-lg-5 col-sm-12">
                       <div class="row">
                         <hr />
-                        <div id='loading' class="col-lg-9 text-center">
-                          <div class="spinner-border text-primary" role="status">
-                          </div>
-                        </div>
                         <div id='outcomes' class="col-lg-12">
-
+                          <%= session.getAttribute("progress") %>
                         </div>
                       </div>
                     </div>
@@ -72,36 +68,12 @@
       </div>
       <!-- .animated -->
       <!-- /.content -->
-      <div class="clearfix"></div>
-      <!-- Footer -->
-      <jsp:include page="../partials/footer.jsp" />
-      <!-- /.site-footer -->
     </div>
+    <div class="clearfix"></div>
+    <!-- Footer -->
+    <jsp:include page="../partials/footer.jsp" />
+    <!-- /.site-footer -->
     <!-- /#right-panel -->
-
-    <!--modal-->
-    <div class="modal fade" id="decriptionModal">
-      <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-          <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Modal Heading</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
-
-          <!-- Modal body -->
-          <div class="modal-body">
-            Modal body..
-          </div>
-
-          <!-- Modal footer -->
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
 
     <!-- Scripts -->
     <jsp:include page="../partials/scripts.jsp" />
@@ -109,22 +81,7 @@
     <!--Local Stuff-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
     <script>
-      $jq(document).ready(function () {
-        $jq.ajax({
-          url: "/chuandaura",
-          method: "post",
-          data: {},
-          success: function (respone) {
-            $jq("#outcomes").html(respone)
-            $jq("#loading").hide();
-          }
-        });
-        $jq("tr.object").click(function (e) {
-          e.preventDefault();
-          $jq("#decriptionModal").modal('show');
-        })
-      })
-      var data = <%= request.getSession().getAttribute("total") %>
+      var data = '<%= session.getAttribute("totalOutcome") %>'
       var ctx = document.getElementById("outcomeChart");
       ctx.height = 200;
       var myChart = new Chart(ctx, {

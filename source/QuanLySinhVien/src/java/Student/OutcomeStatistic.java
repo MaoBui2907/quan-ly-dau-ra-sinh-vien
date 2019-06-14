@@ -35,21 +35,6 @@ public class OutcomeStatistic extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         RequestDispatcher view = null;
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("role") == "student") {
-            session.setAttribute("title", "Chuẩn đầu ra sinh viên");
-            view = request.getRequestDispatcher("/student/outcomeStatistic.jsp");
-            view.include(request, response);
-        } else {
-            response.sendRedirect("/login");
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        //        read database config
         Properties dbProps = new Properties();
         dbProps.load(getServletContext().getResourceAsStream("/WEB-INF/classes/database.properties"));
         String dbHost = dbProps.getProperty("dbURL");
@@ -65,11 +50,15 @@ public class OutcomeStatistic extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryPoint = "SELECT R.MACHUANDR, TENCHUANDR, QUATRINH FROM SV_CHUANDAURA, \n"
-                        + "(SELECT MACHUANDR, TENCHUANDR FROM CHUANDAURA, \n"
-                        + "(SELECT MAKHOA FROM SINHVIEN, LOPSINHHOAT WHERE SINHVIEN.MALOP = LOPSINHHOAT.MALOP AND MSSV='" + session.getAttribute("studentID") + "') K \n"
-                        + "WHERE CHUANDAURA.MAKHOA = K.MAKHOA) R\n"
-                        + "WHERE R.MACHUANDR = SV_CHUANDAURA.MACHUANDR AND MSSV = '" + session.getAttribute("studentID") + "'";
+                String queryPoint = "SELECT QUATRINH, TOITHIEU, LO.MSSV, LO.MACHUANDR, TENCHUANDR\n"
+                        + "FROM SV_CHUANDAURA,\n"
+                        + "(SELECT DISTINCT MACHUANDR, TENCHUANDR, KHOA.MAKHOA, TOITHIEU, MSSV\n"
+                        + "FROM CHUANDAURA, \n"
+                        + "(SELECT DISTINCT MAKHOA, MSSV\n"
+                        + "FROM SINHVIEN, LOPSINHHOAT\n"
+                        + "WHERE SINHVIEN.MALOP = LOPSINHHOAT.MALOP AND MSSV = '" + session.getAttribute("studentID") + "') KHOA\n"
+                        + "WHERE KHOA.MAKHOA = CHUANDAURA.MAKHOA) LO\n"
+                        + "WHERE LO.MACHUANDR = SV_CHUANDAURA.MACHUANDR AND LO.MSSV = SV_CHUANDAURA.MSSV";
                 ResultSet points = statement.executeQuery(queryPoint);
                 boolean isEnded = false;
                 String resString = "";
@@ -77,7 +66,7 @@ public class OutcomeStatistic extends HttpServlet {
                 int curr = 0;
                 while (points.next()) {
                     sum += 1;
-                    if ( points.getInt("QUATRINH") == 100) {
+                    if (points.getInt("QUATRINH")  >= points.getInt("TOITHIEU")) {
                         curr += 1;
                     }
                     String tr = "<div class='progress-box progress-1'>"
@@ -88,8 +77,11 @@ public class OutcomeStatistic extends HttpServlet {
                             + " aria-valuenow='25' aria-valuemin='0' aria-valuemax='100'></div></div></div>";
                     resString += tr;
                 }
-                session.setAttribute("total", (int) (curr / sum) * 100);
-                response.getWriter().write(resString);
+                session.setAttribute("progress", resString);
+                session.setAttribute("totalOutcome", curr  * 100 / sum );
+                session.setAttribute("title", "Chuẩn đầu ra sinh viên");
+                view = request.getRequestDispatcher("/student/outcomeStatistic.jsp");
+                view.include(request, response);
             } catch (ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(ClassManagementServlet.class.getName()).log(Level.SEVERE, null, ex);
                 response.setContentType("text/plain");

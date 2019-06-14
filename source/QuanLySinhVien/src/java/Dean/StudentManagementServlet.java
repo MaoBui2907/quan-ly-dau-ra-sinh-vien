@@ -67,16 +67,20 @@ public class StudentManagementServlet extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryStudent = "SELECT DISTINCT GIAOVIEN.MAGV, TENGV, HOCHAM, HOCVI, COUNT(MALOPHOC) SOLOP from GIAOVIEN, GIANGDAY "
-                        + "WHERE GIAOVIEN.MAGV = GIANGDAY.MAGV AND GIAOVIEN.MAKHOA=(SELECT MAKHOA FROM KHOA WHERE MATK='" + session.getAttribute("teacherID") + "') "
-                        + "GROUP BY GIAOVIEN.MAGV, TENGV, HOCHAM, HOCVI";
+                String queryStudent = "SELECT COUNT(QUATRINH) QT, SINHVIEN.MSSV, TENSV, MALOP\n"
+                        + "FROM SV_CHUANDAURA,\n"
+                        + "(SELECT SINHVIEN.MSSV, TENSV, MALOP\n"
+                        + "FROM (SELECT MAKHOA, MSSV, TENSV, SINHVIEN.MALOP FROM SINHVIEN, LOPSINHHOAT WHERE SINHVIEN.MALOP = LOPSINHHOAT.MALOP) SINHVIEN, KHOA\n"
+                        + "WHERE SINHVIEN.MAKHOA = KHOA.MAKHOA AND MATK = 'DH134498') SINHVIEN\n"
+                        + "WHERE SINHVIEN.MSSV = SV_CHUANDAURA.MSSV AND QUATRINH >= 60\n"
+                        + "GROUP BY SINHVIEN.MSSV, TENSV, MALOP";
                 ResultSet students = statement.executeQuery(queryStudent);
                 boolean isEnded = false;
                 String resString = "";
                 while (students.next()) {
-                    String tr = "<tr><td>" + students.getString("MSGV") + "</td><td>"
-                            + students.getString("TENGV") + "</td><td>" + students.getString("HOCHAM") + "</td><td>"
-                            + students.getString("HOCVI") + "</td><td>" + students.getString("SOLOP") + "</td></tr>";
+                    String tr = "<tr><td>" + students.getString("MSSV") + "</td><td>"
+                            + students.getString("TENSV") + "</td><td>" + students.getString("MALOP") + "</td><td>"
+                            + students.getString("QT") + "</td></tr>";
                     resString += tr;
                 }
                 response.getWriter().write(resString);

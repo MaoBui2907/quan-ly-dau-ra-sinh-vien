@@ -66,14 +66,18 @@ public class TeacherManagementServlet extends HttpServlet {
                 String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
                 Connection con = DriverManager.getConnection(url, dbUser, dbPassword);
                 Statement statement = con.createStatement();
-                String queryTeacher = "SELECT DISTINCT GIAOVIEN.MAGV, TENGV, HOCHAM, HOCVI, COUNT(MALOPHOC) SOLOP from GIAOVIEN, GIANGDAY "
-                        + "WHERE GIAOVIEN.MAGV = GIANGDAY.MAGV AND GIAOVIEN.MAKHOA=(SELECT MAKHOA FROM KHOA WHERE MATK='" + session.getAttribute("teacherID") + "') "
-                        + "GROUP BY GIAOVIEN.MAGV, TENGV, HOCHAM, HOCVI";
+                String queryTeacher = "SELECT LOPHOC.MAGV, TENGV, COUNT( DISTINCT MALOPHOC) SOLOP, HOCHAM, HOCVI\n"
+                        + "FROM LOPHOC, \n"
+                        + "(SELECT GIAOVIEN.MAGV, TENGV, HOCHAM, HOCVI\n"
+                        + "FROM KHOA, GIAOVIEN\n"
+                        + "WHERE KHOA.MAKHOA = GIAOVIEN.MAKHOA AND MATK = '" + session.getAttribute("teacherID") + "') GIAOVIEN\n"
+                        + "WHERE LOPHOC.MAGV = GIAOVIEN.MAGV\n" 
+                        + "GROUP BY TENGV, LOPHOC.MAGV, HOCHAM, HOCVI";
                 ResultSet teachers = statement.executeQuery(queryTeacher);
                 boolean isEnded = false;
                 String resString = "";
                 while (teachers.next()) {
-                    String tr = "<tr><td>" + teachers.getString("MSGV") + "</td><td>"
+                    String tr = "<tr><td>" + teachers.getString("MAGV") + "</td><td>"
                             + teachers.getString("TENGV") + "</td><td>" + teachers.getString("HOCHAM") + "</td><td>"
                             + teachers.getString("HOCVI") + "</td><td>" + teachers.getString("SOLOP") + "</td></tr>";
                     resString += tr;

@@ -42,14 +42,14 @@ public class DashboardServlet extends HttpServlet {
         String dbName = dbProps.getProperty("dbName");
         String dbUser = dbProps.getProperty("dbUser");
         String dbPassword = dbProps.getProperty("dbPassword");
-
+        
         RequestDispatcher view = null;
         HttpSession session = request.getSession(false);
         if (session != null) {
             String role = (String) session.getAttribute("role");
             switch (role) {
                 case "teacher":
-                    String teacherID = (String) session.getAttribute("teacherID");
+                    String teacherID = session.getAttribute("teacherID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
@@ -72,12 +72,20 @@ public class DashboardServlet extends HttpServlet {
                         while (widgets.next()) {
                             session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
-                            session.setAttribute("widget1", widgets.getString("SOLOP"));
-                            session.setAttribute("label1", "Số lớp học");
+
                             session.setAttribute("widget2", widgets.getString("SOLOP"));
                             session.setAttribute("label2", "Lớp giảng dạy");
-                            session.setAttribute("widget3", widgets.getString("SOLOP"));
-                            session.setAttribute("label3", "TB Đạt chuẩn");
+                        }
+                        queryWidget = "  SELECT AVG(QUATRINH) TB, COUNT(DISTINCT MSSV) SV, LOPHOC.MALOPHOC FROM LOPHOC, SV_CHUANMH \n"
+                                + " WHERE LOPHOC.MALOPHOC=SV_CHUANMH.MALOPHOC AND LOPHOC.NAMHOC=SV_CHUANMH.NAMHOC \n"
+                                + " AND LOPHOC.HOCKY=SV_CHUANMH.HOCKY AND MAGV = '" + teacherID + "'\n"
+                                + " GROUP BY LOPHOC.MALOPHOC";
+                        widgets = widStatement.executeQuery(queryWidget);
+                        while (widgets.next()) {
+                            session.setAttribute("widget1", widgets.getString("SV"));
+                            session.setAttribute("label1", "Số sinh viên");
+                            session.setAttribute("widget3", widgets.getString("TB") + "%");
+                            session.setAttribute("label3", "TB chuẩn đạt được");
                         }
 
                         // Chart data
@@ -99,10 +107,9 @@ public class DashboardServlet extends HttpServlet {
                         response.setContentType("text/plain");
                         response.getWriter().print(ex);
                     }
-
                     break;
                 case "student":
-                    String studentID = (String) session.getAttribute("studentID");
+                    String studentID = session.getAttribute("studentID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;
@@ -123,25 +130,19 @@ public class DashboardServlet extends HttpServlet {
                             session.setAttribute("label1", "Lớp sinh hoạt");
                         }
                         // widget data
-                        String queryWidget = "SELECT COUNT(MALOPHOC) SOLOP, NAMBD FROM SINHVIEN_LOPHOC, \n"
-                                + " (SELECT MSSV, MIN(NAMHOC) NAMBD FROM BANGDIEM GROUP BY MSSV ) NAMHOC \n"
-                                + " WHERE SINHVIEN_LOPHOC.MSSV = NAMHOC.MSSV AND NAMHOC.MSSV = '" + studentID + "'\n"
-                                + " GROUP BY NAMHOC.MSSV, NAMBD";
+                        String queryWidget = "SELECT MIN(NAMHOC) NAMBD, AVG(DIEMTB) TB, COUNT(MALOPHOC) SOLOP\n"
+                                + "FROM BANGDIEM\n"
+                                + "WHERE MSSV = '" + session.getAttribute("studentID") + "'";
                         ResultSet widgets = statement.executeQuery(queryWidget);
                         while (widgets.next()) {
                             session.setAttribute("widget0", widgets.getString("NAMBD"));
                             session.setAttribute("label0", "Năm bắt đầu");
                             session.setAttribute("widget2", widgets.getString("SOLOP"));
                             session.setAttribute("label2", "Số lớp học");
-                        }
-                        queryWidget = "SELECT AVG(DIEMTB) TB \n"
-                                + " FROM BANGDIEM \n"
-                                + " WHERE MSSV = '" + studentID + "'";
-                        widgets = statement.executeQuery(queryWidget);
-                        while (widgets.next()) {
                             session.setAttribute("widget3", widgets.getString("TB"));
                             session.setAttribute("label3", "TB tích lũy");
                         }
+
                         // Chart data
                         session.setAttribute("chartTitle", "Số lớp học theo năm");
                         session.setAttribute("yLabel", "Lớp");
@@ -163,7 +164,7 @@ public class DashboardServlet extends HttpServlet {
                     }
                     break;
                 case "dean":
-                    String deanID = (String) session.getAttribute("teacherID");
+                    String deanID = session.getAttribute("teacherID");
                     try {
                         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                         String url = "jdbc:sqlserver://" + dbHost + ";databaseName=" + dbName;

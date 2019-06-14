@@ -23,7 +23,7 @@
     <style>
         .header-fixed {
             overflow: auto;
-            max-height: 300px;
+            max-height: 350px;
         }
 
         .header-fixed thead th {

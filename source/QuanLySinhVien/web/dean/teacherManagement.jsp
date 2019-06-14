@@ -25,7 +25,7 @@
 
         .header-fixed {
             overflow: auto;
-            max-height: 300px;
+            max-height: 420px;
         }
 
         .header-fixed thead th {
@@ -99,11 +99,11 @@
             </div>
             <!-- .animated -->
             <!-- /.content -->
-            <div class="clearfix"></div>
             <!-- Footer -->
-            <jsp:include page="../partials/footer.jsp" />
             <!-- /.site-footer -->
         </div>
+        <div class="clearfix"></div>
+        <jsp:include page="../partials/footer.jsp" />
         <!-- /#right-panel -->
 
         <!--modal-->

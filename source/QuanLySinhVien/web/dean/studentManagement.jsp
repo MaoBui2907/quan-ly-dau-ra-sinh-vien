@@ -25,7 +25,7 @@
 
         .header-fixed {
             overflow: auto;
-            max-height: 300px;
+            max-height: 420px;
         }
 
         .header-fixed thead th {
@@ -74,11 +74,10 @@
                                         <table id="students" class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th>MSGV</th>
+                                                    <th>MSSV</th>
                                                     <th>Họ tên</th>
-                                                    <th>Học hàm</th>
-                                                    <th>Học vị</th>
-                                                    <th>Số lớp</th>
+                                                    <th>Lớp sinh hoạt</th>
+                                                    <th>Số chuẩn đầu ra đã đạt</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="studentList">
@@ -99,11 +98,11 @@
             </div>
             <!-- .animated -->
             <!-- /.content -->
-            <div class="clearfix"></div>
             <!-- Footer -->
-            <jsp:include page="../partials/footer.jsp" />
             <!-- /.site-footer -->
         </div>
+        <div class="clearfix"></div>
+        <jsp:include page="../partials/footer.jsp" />
         <!-- /#right-panel -->
 
         <!--modal-->
