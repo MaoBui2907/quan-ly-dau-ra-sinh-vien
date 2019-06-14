@@ -1,6 +1,6 @@
 -- Danh sách thành viên:
-	+ Bùi Nguyên Mão (12, 8, 10)
-	+ Cao Văn Nam (2, 3, 14)
+	+ Bùi Nguyên Mão (12, 4, 8, 10, 11)
+	+ Cao Văn Nam (2, 3, 14, 17)
 	+ Phạm Ngọc Hiển (6)
 	+ Lưu Triệu Phương (3)
 	+ Thừa Lê Thanh Chương (7)
@@ -8,7 +8,7 @@
 -- Danh sách công việc:
 - Database:
 	+ [1] 01.Xây dựng database
-	+ [3] 02.Viết file sql, Xây dựng dữ liệu ảo (2)
+	+ [3] 02.Viết file sql, Xây dựng dữ liệu ảo (3)
 
 - Authenticate:
 	+ [1] 03.Trang Login/register/forget (2)

@@ -1,19 +1,25 @@
 ## Website quản lý chất lượng đầu ra sinh viên
 
-Môn công nghệ Java - lớp
+# Môn công nghệ Java - lớp IS303.J21
 
-1. Nhóm sinh viên thực hiện:
+# Nhóm sinh viên thực hiện:
+- Bùi Nguyên Mão
+- Cao Văn Nam
+- Thừa Lê Thanh Chương
+- Phạm Ngọc Hiển
+- Lưu Triệu Phương
 
-2. Cấu trúc:
-  - doc: chứa các tài liệu kèm kế hoạch
-  - template: chứa template sử dụng
-  - source: chứa code dự án
-    + source\QuanLySinhVien\src\java: chứa các file servlet
-    + source\QuanLySinhVien\web: chứa file html, css, js, img,...
+# Cấu trúc:
+- doc: chứa các tài liệu kèm kế hoạch
+  - doc/quanlytiendo
+  - doc/database 
+- template: chứa template sử dụng
+- source: chứa code dự án
+  + source/QuanLySinhVien/src/java: chứa các file servlet
+  + source/QuanLySinhVien/web: chứa file jsp, css, js, img,...
 
-3. Chuẩn bị môi trường local:
-  - cài đặt grassfish + netbeans
+# Chuẩn bị môi trường local:
+  - cài đặt apache tomcat + netbeans
   - mở project bằng netbeans
-  - chạy ở môi trường localhost: bấm nút run ở thanh công cụ netbeans, đợi rồi truy cập localhost:8080/QuanLySinhVien
-  - cơ sở dữ liệu:
+  - chạy ở môi trường localhost: bấm nút run ở thanh công cụ netbeans, đợi rồi truy cập localhost:8080
 
