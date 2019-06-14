@@ -1,0 +1,113 @@
+SQL server
+
+Khoa
+-- MaKhoa
+-- Ten
+-- MoTa
+-- MaTruongKhoa
+
+LopSinhHoat
+-- MaLop
+-- MaKhoaQuanLy
+-- TenLop
+-- MoTa
+-- MaGiaoVien
+
+SinhVien
+-- MSSV
+-- Ten
+-- Ho
+-- MaLopSinhHoat
+-- Email
+-- Sdt
+-- DiaChi
+-- Username
+-- Password
+
+BangDiem:
+-- MaSV
+-- MaMon
+-- DiemQuaTrinh
+-- DiemGiuaKy
+-- DiemThucHanh
+-- DiemCuoiKy
+-- DiemTrungBinh
+-- TongQuaTrinh LO
+-- HocKy
+-- Nam 
+
+SinhVien-LopHoc
+-- MSSV
+-- MaLopHoc
+-- DiemGiuaKy
+-- DiemQuaTrinh
+-- DiemCuoiKy
+-- DiemThucHanh
+
+SinhVien-MonHoc
+-- MSSV
+-- MaMonHoc
+-- KetQua
+
+SinhVien-ChuanDauRa
+-- MSSV
+-- MaChuanDauRa
+-- QuaTrinh // Đạt bao nhiêu phần trăm
+-- HocKy    // Học kỳ đạt được không
+
+SinhVien-ChuanMonHocG:
+-- MSSV
+-- MaChuanMonHoc
+-- QuaTrinh
+-- HocKy
+
+MonHoc
+-- MaMonHoc
+-- Ten
+-- MaKhoa
+-- MoTa
+
+LopHoc
+-- MaLopHoc // IT009.J21_2018_2019_HK1
+-- MaMon
+-- MoTa
+-- MaGiaoVien
+-- HocKy
+-- NamHoc
+
+ChuanDauRaLO
+-- MaChuan
+-- Ten
+-- MaKhoa
+-- DienGiai
+
+ChuanMonHocG
+-- MaChuan
+-- MaMon
+-- Ten
+-- DienGiai
+-- Diem
+
+ChuanDauRaLO-ChuanMonHocG:
+-- MaChuanDauRa
+-- MaChuanMonHoc
+
+GiaoVien
+-- MaGiaoVien
+-- HoTen
+-- HocHam
+-- HocVi
+-- Email
+-- Sdt
+-- MoTa
+-- Username
+-- Password
+
+QuanLy:
+-- MaTruongKhoa
+-- MaGiaoVien
+
+QuaTrinhGiangDay
+-- MaGiaoVien
+-- MaLop
+-- QuaTrinhG // Bao nhiêu % học sinh đạt được các chuẩn G
