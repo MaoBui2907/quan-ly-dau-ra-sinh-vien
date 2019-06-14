@@ -18,9 +18,7 @@
 <head>
   <jsp:include page="../partials/head.jsp" />
   <style>
-    .widget .card {
-      height: 110px
-    }
+
   </style>
 </head>
 
@@ -74,30 +72,30 @@
               <div class="col-lg-12">
                 <div class="card-body">
                   <div class="row">
-                    <div class="col-md-5 col-sm-12">
+                    <div class="col-md-7 col-sm-12">
                       <dl class="row">
-                        <dt class="col-sm-5">
-                          <i class="pe-7s-door-lock" style="color: blue"></i> MS</dt>
-                        <dd class="col-sm-7"><%= request.getSession().getAttribute("id")%></dd>
-                        <dt class="col-sm-5">
-                          <i class="pe-7s-user" style="color: green"></i> Họ tên</dt>
-                        <dd class="col-sm-7"><%= request.getSession().getAttribute("name")%>
+                        <dt class="col-sm-7">
+                          <i class="pe-7s-door-lock" style="color: blue"></i> Tổng số lớp đã dạy</dt>
+                        <dd class="col-sm-5"><%= request.getSession().getAttribute("total")%></dd>
+                        <dt class="col-sm-7">
+                          <i class="pe-7s-user" style="color: green"></i> Năm bắt đầu</dt>
+                        <dd class="col-sm-5"><%= request.getSession().getAttribute("start")%>
                         </dd>
-                        <dt class="col-sm-5">
-                          <i class="pe-7s-network" style="color: blue"></i> Khoa</dt>
-                        <dd class="col-sm-7"><%= request.getSession().getAttribute("faculty")%>
+                        <dt class="col-sm-7">
+                          <i class="pe-7s-network" style="color: blue"></i> Trung bình đạt chuẩn</dt>
+                        <dd class="col-sm-5"><%= request.getSession().getAttribute("avgProgress")%>
                         </dd>
-                        <dt class="col-sm-5">
-                          <i class="pe-7s-note" style="color: green"></i> Email</dt>
-                        <dd class="col-sm-7"><%= request.getSession().getAttribute("email")%>
+                        <dt class="col-sm-7">
+                          <i class="pe-7s-note" style="color: green"></i> Quá trình cao nhất</dt>
+                        <dd class="col-sm-5"><%= request.getSession().getAttribute("maxProgress")%>
                         </dd>
-                        <dt class="col-sm-5">
-                          <i class="pe-7s-keypad" style="color: blue"></i> SDT</dt>
-                        <dd class="col-sm-7">
-                          <%= '0' + (String) request.getSession().getAttribute("phone")%></dd>
+                        <dt class="col-sm-7">
+                          <i class="pe-7s-keypad" style="color: blue"></i> Lớp đạt chuẩn cao nhất</dt>
+                        <dd class="col-sm-5">
+                          <%= (String) request.getSession().getAttribute("maxClass")%></dd>
                       </dl>
                     </div>
-                    <div class="col-md-7 col-sm-12">
+                    <div class="col-md-5 col-sm-12">
                       <canvas id="personalChart"></canvas>
                     </div>
                   </div>
@@ -130,26 +128,26 @@
         type: 'pie',
         data: {
           datasets: [{
-            data: [45, 25, 20, 10],
+            data: <%= session.getAttribute("subjectDatas") %> ,
             backgroundColor: [
               "red",
               "blue",
               "green",
-              "yellow"
+              "yellow",
+              "gray",
+              "purple"
             ],
             hoverBackgroundColor: [
               "red",
               "blue",
               "green",
-              "yellow"
+              "yellow",
+              "gray",
+              "purple"
             ]
 
           }],
-          labels: [
-            "green",
-            "green",
-            "green"
-          ]
+          labels: <%= session.getAttribute("subjectNames") %>
         },
         options: {
           responsive: true,
@@ -163,7 +161,7 @@
           },
           title: {
             display: true,
-            text: "Tỉ lệ sô lớp giảng dạy",
+            text: "Tỉ lệ sô lớp giảng dạy theo môn",
             position: "bottom"
           }
         },
@@ -175,44 +173,84 @@
       var myChart = new Chart(ctt, {
         type: 'line',
         data: {
+          labels: <%= session.getAttribute("years") %> ,
+          type: 'line',
+          defaultFontFamily: 'Montserrat',
           datasets: [{
-            data: [45, 25, 20, 10],
-            backgroundColor: [
-              "red",
-              "blue",
-              "green",
-              "yellow"
-            ],
-            hoverBackgroundColor: [
-              "red",
-              "blue",
-              "green",
-              "yellow"
-            ]
-
-          }],
-          labels: [
-            "green",
-            "green",
-            "green"
-          ]
+            label: 'Tổng số lớp',
+            data: <%= session.getAttribute("totalClass") %>,
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(220,53,69,0.75)',
+            borderWidth: 3,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: 'rgba(220,53,69,0.75)',
+          },{
+            label: 'Lớp TB đạt > 80%',
+            data: <%= session.getAttribute("positiveClass") %>,
+            backgroundColor: 'transparent',
+            borderColor: 'rgba(40,167,69,0.75)',
+            borderWidth: 3,
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: 'rgba(40,167,69,0.75)',
+          }]
         },
         options: {
           responsive: true,
+          tooltips: {
+            mode: 'index',
+            titleFontSize: 12,
+            titleFontColor: '#000',
+            bodyFontColor: '#000',
+            backgroundColor: '#fff',
+            titleFontFamily: 'Montserrat',
+            bodyFontFamily: 'Montserrat',
+            cornerRadius: 3,
+            intersect: false,
+          },
           legend: {
-            display: true,
-            position: 'top',
+            display: false,
             labels: {
               usePointStyle: true,
               fontFamily: 'Montserrat',
             },
           },
+          scales: {
+            xAxes: [{
+              display: true,
+              gridLines: {
+                display: false,
+                drawBorder: true
+              },
+              scaleLabel: {
+                display: false,
+                labelString: 'Month'
+              }
+            }],
+            yAxes: [{
+              display: true,
+              gridLines: {
+                display: false,
+                drawBorder: true
+              },
+              ticks: {
+                //                                        fixedStepSize: 1
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'Lớp'
+              }
+            }]
+          },
           title: {
             display: true,
-            text: "Tỉ lệ sô lớp giảng dạy",
+            text: 'Quá trình giảng dạy theo năm',
             position: "bottom"
           }
-        },
+        }
       });
 
       // personal chart
