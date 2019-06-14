@@ -121,24 +121,29 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div id='loading' class="col-12 text-center" style="display: none;">
+                                    <div id='loading' class="col-12 text-center" style="display: none">
                                         <div class="spinner-border text-primary" role="status">
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <form>
-                                            <div class="row">
-                                                <div class="col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <form>
+                                                    <input id="filecsv" type="file" />
                                                     <button id="pointUpdate" class="btn btn-outline-info float-right"
-                                                        style="margin-top:30px">Cập nhật điểm thi</button>
-                                                </div>
-                                                <div class="col-md-6 col-sm-12">
-                                                    <button id="exportList" onclick="fnExcelReport();"
-                                                        class="btn btn-outline-primary" style="margin-top:30px">Xuất
-                                                        danh sách sinh viên</button>
-                                                </div>
+                                                        style="margin-top:30px">
+                                                        <span class="spinner-border spinner-border-sm" role="status"
+                                                            aria-hidden="true" style="display: none"></span>
+                                                        Cập nhật điểm thi
+                                                    </button>
+                                                </form>
                                             </div>
-                                        </form>
+                                            <div class="col-md-6 col-sm-12">
+                                                <button id="exportList" onclick="fnExcelReport();"
+                                                    class="btn btn-outline-primary" style="margin-top:30px">Xuất
+                                                    danh sách sinh viên</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +161,9 @@
     </div>
     <!-- /.site-footer -->
     <!-- /#right-panel -->
-
+    <form id='form' enctype="multipart/form-data">
+        <input id='pointUpload' type='file' hidden />
+    </form>
     <!-- Scripts -->
     <jsp:include page="../partials/scripts.jsp" />
 
@@ -193,6 +200,45 @@
 
             return (sa);
         }
+
+        function processData(allText) {
+            var allTextLines = allText.split(/\r\n|\n/);
+            var headers = allTextLines[0].split(',');
+            var lines = [];
+            for (var i = 1; i < allTextLines.length; i++) {
+                lines.push("UPDATE BANGDIEM SET DIEMGQT=" + allTextLines[i][2] +
+                    ", DIEMTH=" + allTextLines[i][3] + ", DIEMGK=" + allTextLines[i][4] +
+                    ", DIEMCK=" + allTextLines[i][5] + " WHERE MSSV='" + allTextLines[i][0] +
+                    "' AND MALOPHOC='" + $jq("#class").val().substring(0, 9) + "' AND HOCKY=" + $jq("#class").val()
+                    .substring(14, 15) +
+                    " AND NAMHOC=" + $jq("#class").val().substring(16, 20))
+            }
+            console.log(lines);
+        }
+        $jq("#pointUpdate").click(function (e) {
+            e.preventDefault();
+            var data
+            var file = $jq('#filecsv').prop('files')[0];
+            const reader = new FileReader()
+            reader.onload = function(event) {
+                data = processData(event.target.result)
+            } 
+            reader.readAsText(file)
+            $jq.ajax({
+                url: "/capnhatdiem",
+                method: "post",
+                data: {
+                    "update": JSON.stringify(data)
+                },
+                beforeSend: function () {
+                    $jq("#uploading").show()
+
+                },
+                success: function (respone) {
+                    $jq("#uploading").hide()
+                }
+            })
+        })
         $jq('.manage').click(function (e) {
             e.preventDefault();
             $jq.ajax({

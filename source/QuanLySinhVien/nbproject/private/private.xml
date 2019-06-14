@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Teacher/TeachingStatistic.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dean/TeacherManagementServlet.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dashboard/DashboardServlet.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Student/PointTableServlet.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Dean/StudentManagementServlet.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Teacher/PointUpdate.java</file>
             <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Student/OutcomeStatistic.java</file>
+            <file>file:/home/nguyenmao/Projects/quan-ly-dau-ra-sinh-vien/source/QuanLySinhVien/src/java/Teacher/ClassManagementServlet.java</file>
         </group>
     </open-files>
 </project-private>
